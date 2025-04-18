@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Happy 5 Months, Jani 💖</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Brush Script MT', cursive;
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 4em;
+      margin-top: 1em;
+      color: pink;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    p {
+      font-size: 1.5em;
+      max-width: 80%;
+      margin: 1em auto;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 1em;
+      border-radius: 20px;
+      line-height: 1.6em;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff9ff3; }
+      to { text-shadow: 0 0 20px #f368e0; }
+    }
+
+    .heart {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: url('https://i.imgur.com/1bX5QH6.png') no-repeat center;
+      background-size: contain;
+      animation: float 6s infinite;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) scale(1);
+        opacity: 0.5;
+      }
+      100% {
+        transform: translateY(-100vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Happy 5 Months, Jani 💗</h1>
+  <p>
+    My sweet Janu,<br><br>
+    Five beautiful months have passed, and with each day, I fall even more in love with you. You are my sunshine on cloudy days, my calm in every storm, and the reason I smile without meaning to. <br><br>
+    Your love wraps around me like a warm hug from the universe, and I never want to live without it. Here's to us — to every shared laugh, every whispered dream, and all the heartbeats we’ve yet to share. <br><br>
+    I love you endlessly.<br>
+    Forever yours,<br>
+    ❤️
+  </p>
+
+  <audio autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // Floating hearts
+    for (let i = 0; i < 30; i++) {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+      document.body.appendChild(heart);
+    }
+  </script>
+</body>
+</html>
