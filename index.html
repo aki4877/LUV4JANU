@@ -201,11 +201,7 @@
     // Minimize video and start the show
     function minimizeVideo() {
       const video = document.getElementById('youtube-video');
-      video.style.position = 'fixed';
-      video.style.bottom = '10px';
-      video.style.right = '10px';
-      video.style.width = '10vw';
-      video.style.height = '5vh';
+      video.style.display = 'none';
       document.getElementById('video-prompt').style.display = 'none';
     }
 
