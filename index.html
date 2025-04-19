@@ -103,8 +103,8 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 8vw;
-      height: 4vh;
+      width: 80vw;
+      height: 45vh;
       z-index: 10;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(255, 192, 203, 0.6);
@@ -236,27 +236,12 @@
 
       showIntro();
 
-      // Array of image paths and captions (images in root directory)
-      const slides = [
-        { src: '1.jpg', caption: 'The day it all began — your smile changed everything.' },
-        { src: '2.jpg', caption: 'Our first photo together — I knew we were something special.' },
-        { src: '3.jpg', caption: 'Laughing like kids, loving like soulmates.' },
-        { src: '4.jpg', caption: 'Late night talks, sleepy eyes, full hearts.' },
-        { src: '5.jpg', caption: 'You looked at me like I was home.' },
-        { src: '6.jpg', caption: 'A stolen kiss, forever etched in my mind.' },
-        { src: '7.jpg', caption: 'Holding your hand felt like holding the universe.' },
-        { src: '8.jpg', caption: 'Every second with you is a favorite memory.' },
-        { src: '9.jpg', caption: 'You make ordinary moments feel magical.' },
-        { src: '10.jpg', caption: 'From “I like you” to “I love you” — my favorite journey.' },
-        { src: '11.jpg', caption: 'The way you look at me when I talk — I never felt so heard.' },
-        { src: '12.jpg', caption: 'A thousand lifetimes wouldn’t be enough with you.' },
-        { src: '13.jpg', caption: 'Even silence feels like love when I’m with you.' },
-        { src: '14.jpg', caption: 'We’re not perfect, but we’re perfect for each other.' },
-        { src: '15.jpg', caption: '5 months down, forever to go — I love you, Janu.' }
-      ];
+      // Slides array will be injected by Python
+      const slides = [];
 
       const slideshow = document.getElementById('slideshow');
       const poemText = document.getElementById('poem-text');
+      const heartContainer = document.getElementById('hearts-container');
 
       function startSlideshow() {
         document.body.style.background = '#89CFF0';
