@@ -136,7 +136,7 @@
 
   <!-- YOUTUBE VIDEO -->
   <iframe id="youtube-video" 
-          src="https://www.youtube.com/embed/B8eF-UACAPQ?autoplay=1&mute=0&loop=1&playlist=B8eF-UACAPQ&controls=1" 
+          src="https://www.youtube.com/embed/B8eF-UACAPQ?autoplay=1&mute=0&loop=1&playlist=B8eF-UACAPQ&controls=1&enablejsapi=1" 
           frameborder="0" 
           allow="autoplay; encrypted-media" 
           allowfullscreen></iframe>
@@ -159,9 +159,11 @@
     }
 
     function onPlayerReady(event) {
-      // Attempt unmuted playback
-      player.playVideo();
-      player.unMute();
+      // Attempt unmuted playback with slight delay for stability
+      setTimeout(() => {
+        player.playVideo();
+        player.unMute();
+      }, 100);
     }
 
     function onPlayerError(event) {
