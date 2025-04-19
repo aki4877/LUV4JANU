@@ -35,7 +35,7 @@
       100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
     }
 
-    .text, .slide {
+    .text, .slide, .poem {
       position: absolute;
       top: 0;
       left: 0;
@@ -52,7 +52,7 @@
       padding: 0 20px;
     }
 
-    .text.show, .slide.show {
+    .text.show, .slide.show, .poem.show {
       opacity: 1;
     }
 
@@ -73,6 +73,16 @@
       color: #ffccdd;
       margin-top: 30px;
       max-width: 80%;
+    }
+
+    .poem {
+      font-size: 2.5em;
+      color: #ffccdd;
+      font-style: italic;
+      max-width: 80%;
+      margin-top: 20px;
+      opacity: 0;
+      transition: opacity 2s ease-in-out; /* Make the poem fade in */
     }
 
     #slideshow {
@@ -102,6 +112,16 @@
 
   <!-- IMAGE + CAPTION SLIDES -->
   <div id="slideshow"></div>
+
+  <!-- POEM TEXT (this will fade in and stay) -->
+  <div class="poem" id="poem-text">
+    You are the sun that lights my sky, <br>
+    The one I hold, the one I’ll try, <br>
+    Every heartbeat, every breath, <br>
+    I’ll love you through life and death. <br>
+    From now until eternity, <br>
+    It’s you and me, forever to be.
+  </div>
 
   <!-- BACKGROUND MUSIC -->
   <audio autoplay loop>
@@ -164,13 +184,20 @@
     ];
 
     const slideshow = document.getElementById('slideshow');
+    const poemText = document.getElementById('poem-text');
 
     function startSlideshow() {
       intros.forEach(t => t.style.display = 'none');
 
       let index = 1;
       function showSlide() {
-        if (index > 15) return;
+        if (index > 15) {
+          // Show the poem after the last image
+          setTimeout(() => {
+            poemText.classList.add('show');
+          }, 1000);
+          return;
+        }
 
         const slide = document.createElement('div');
         slide.className = 'slide show';
