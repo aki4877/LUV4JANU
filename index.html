@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Happy 5 Months, Janu 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
   <style>
     html, body {
       margin: 0;
@@ -10,7 +11,7 @@
       background: black;
       overflow: hidden;
       height: 100vh;
-      font-family: 'Brush Script MT', cursive;
+      font-family: 'Great Vibes', cursive;
       color: #fff;
     }
 
@@ -71,7 +72,7 @@
     }
 
     .caption {
-      font-size: 2em;
+      font-size: 2.5em;
       color: #ffccdd;
       margin-top: 30px;
       max-width: 80%;
@@ -159,7 +160,6 @@
         currentIntro++;
         setTimeout(showIntro, 2500);
       } else {
-        // start slideshow
         setTimeout(startSlideshow, 2000);
       }
     }
@@ -211,14 +211,14 @@
 
         setTimeout(() => {
           slide.classList.add('show');
-        }, 100); // fade in
+        }, 100);
 
         setTimeout(() => {
-          slide.classList.remove('show'); // fade out
+          slide.classList.remove('show');
         }, 3000);
 
         index++;
-        setTimeout(showSlide, 4000); // wait before next
+        setTimeout(showSlide, 4000);
       }
 
       showSlide();
