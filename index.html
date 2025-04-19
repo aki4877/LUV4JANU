@@ -97,24 +97,37 @@
       z-index: 5;
     }
 
-    audio {
-      display: none;
-    }
-
-    #play-music-button {
+    #youtube-video {
       position: fixed;
       bottom: 20px;
       right: 20px;
+      width: 200px;
+      height: 113px;
       z-index: 10;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255, 192, 203, 0.6);
+    }
+
+    #video-prompt {
+      position: fixed;
+      bottom: 140px;
+      right: 20px;
+      z-index: 11;
       background: rgba(255, 192, 203, 0.8);
       color: #fff;
-      padding: 8px 15px;
-      border-radius: 10px;
-      font-size: 1.5em;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 1.2em;
       font-family: 'Great Vibes', cursive;
-      cursor: pointer;
-      border: none;
-      box-shadow: 0 0 10px rgba(255, 192, 203, 0.6);
+      text-align: center;
+    }
+
+    #video-prompt::after {
+      content: '➡️';
+      display: block;
+      font-size: 1.5em;
+      line-height: 1;
+      margin-top: 2px;
     }
   </style>
 </head>
@@ -143,15 +156,15 @@
     It’s you and me, forever to be.
   </div>
 
-  <!-- MUSIC -->
-  <audio id="background-music" loop>
-    <source src="/static/music.mp3" type="audio/mpeg">
-    <source src="/static/music.ogg" type="audio/ogg">
-    Your browser does not support the audio element.
-  </audio>
+  <!-- YOUTUBE VIDEO -->
+  <iframe id="youtube-video" 
+          src="https://www.youtube.com/embed/B8eF-UACAPQ?autoplay=0&mute=0&loop=1&playlist=B8eF-UACAPQ&controls=1" 
+          frameborder="0" 
+          allow="autoplay; encrypted-media" 
+          allowfullscreen></iframe>
 
-  <!-- PLAY MUSIC BUTTON -->
-  <button id="play-music-button">Play Music</button>
+  <!-- VIDEO PROMPT -->
+  <div id="video-prompt">Click on the video for music</div>
 
   <script>
     // HEART ANIMATION
@@ -164,25 +177,6 @@
       heart.style.animationDuration = (5 + Math.random() * 5) + 's';
       heartContainer.appendChild(heart);
     }
-
-    // AUDIO HANDLING
-    const audio = document.getElementById('background-music');
-    const playButton = document.getElementById('play-music-button');
-
-    playButton.addEventListener('click', () => {
-      audio.play().then(() => {
-        playButton.style.display = 'none'; // Hide button after playback starts
-      }).catch(error => {
-        console.error('Audio playback failed:', error);
-        alert('Failed to play audio. Check if music.mp3 is in the static folder or if the file is valid.');
-      });
-    });
-
-    // Log audio loading errors
-    audio.addEventListener('error', () => {
-      console.error('Audio file failed to load. Check if /static/music.mp3 exists and is accessible.');
-      alert('Audio file failed to load. Ensure music.mp3 is in the static folder.');
-    });
 
     // INTRO TEXT SEQUENCE
     const intros = [
