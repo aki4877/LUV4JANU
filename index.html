@@ -1,43 +1,147 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Image Test</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 20px;
-      background: #000;
-      color: #fff;
+import streamlit as st
+import time
+import os
+
+# Set page configuration
+st.set_page_config(page_title="Happy 5 Months, Janu", layout="wide")
+
+# Custom CSS for styling (simulating HTML styles)
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background-color: black;
+        color: white;
+        font-family: 'Great Vibes', cursive;
     }
-    img {
-      max-width: 100%;
-      height: auto;
-      margin-bottom: 20px;
-      display: block;
+    .intro-text, .slide-text, .poem-text {
+        text-align: center;
+        padding: 20px;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
     }
-    .error {
-      color: red;
-      font-family: Arial, sans-serif;
+    .intro-text.show, .slide-text.show, .poem-text.show {
+        opacity: 1;
     }
-  </style>
-</head>
-<body>
-  <h1>Image Loading Test</h1>
-  <img src="1.jpg" alt="Image 1" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 1.jpg</div>'; console.error('Failed to load 1.jpg: Check path or file')">
-  <img src="2.jpg" alt="Image 2" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 2.jpg</div>'; console.error('Failed to load 2.jpg: Check path or file')">
-  <img src="3.jpg" alt="Image 3" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 3.jpg</div>'; console.error('Failed to load 3.jpg: Check path or file')">
-  <img src="4.jpg" alt="Image 4" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 4.jpg</div>'; console.error('Failed to load 4.jpg: Check path or file')">
-  <img src="5.jpg" alt="Image 5" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 5.jpg</div>'; console.error('Failed to load 5.jpg: Check path or file')">
-  <img src="6.jpg" alt="Image 6" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 6.jpg</div>'; console.error('Failed to load 6.jpg: Check path or file')">
-  <img src="7.jpg" alt="Image 7" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 7.jpg</div>'; console.error('Failed to load 7.jpg: Check path or file')">
-  <img src="8.jpg" alt="Image 8" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 8.jpg</div>'; console.error('Failed to load 8.jpg: Check path or file')">
-  <img src="9.jpg" alt="Image 9" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 9.jpg</div>'; console.error('Failed to load 9.jpg: Check path or file')">
-  <img src="10.jpg" alt="Image 10" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 10.jpg</div>'; console.error('Failed to load 10.jpg: Check path or file')">
-  <img src="11.jpg" alt="Image 11" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 11.jpg</div>'; console.error('Failed to load 11.jpg: Check path or file')">
-  <img src="12.jpg" alt="Image 12" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 12.jpg</div>'; console.error('Failed to load 12.jpg: Check path or file')">
-  <img src="13.jpg" alt="Image 13" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 13.jpg</div>'; console.error('Failed to load 13.jpg: Check path or file')">
-  <img src="14.jpg" alt="Image 14" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 14.jpg</div>'; console.error('Failed to load 14.jpg: Check path or file')">
-  <img src="15.jpg" alt="Image 15" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 15.jpg</div>'; console.error('Failed to load 15.jpg: Check path or file')">
-</body>
-</html>
+    .caption {
+        font-size: 2.5em;
+        color: #f5f5f5;
+        margin-top: 10px;
+    }
+    .poem-text {
+        font-size: 3em;
+        font-style: italic;
+        max-width: 80%;
+        margin: 20px auto;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Import Google Fonts (Great Vibes) via link tag
+st.markdown('<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">', unsafe_allow_html=True)
+
+# Intro texts
+intro_texts = [
+    "My dearest Janu",
+    "5 months together",
+    "Every day with you is magic",
+    "You are my heart, my peace",
+    "Here’s to forever, my love 💖"
+]
+
+# Captions for images
+captions = [
+    "The day it all began — your smile changed everything.",
+    "Our first photo together — I knew we were something special.",
+    "Laughing like kids, loving like soulmates.",
+    "Late night talks, sleepy eyes, full hearts.",
+    "You looked at me like I was home.",
+    "A stolen kiss, forever etched in my mind.",
+    "Holding your hand felt like holding the universe.",
+    "Every second with you is a favorite memory.",
+    "You make ordinary moments feel magical.",
+    "From “I like you” to “I love you” — my favorite journey.",
+    "The way you look at me when I talk — I never felt so heard.",
+    "A thousand lifetimes wouldn’t be enough with you.",
+    "Even silence feels like love when I’m with you.",
+    "We’re not perfect, but we’re perfect for each other.",
+    "5 months down, forever to go — I love you, Janu."
+]
+
+# Image files
+image_files = [f"{i}.jpg" for i in range(1, 16)]
+
+# Poem
+poem = """
+You are the sun that lights my sky, <br>
+The one I hold, the one I’ll try, <br>
+Every heartbeat, every breath, <br>
+I’ll love you through life and death. <br>
+From now until eternity, <br>
+It’s you and me, forever to be.
+"""
+
+# Session state to control the flow
+if 'step' not in st.session_state:
+    st.session_state.step = 0
+    st.session_state.intro_index = 0
+    st.session_state.slide_index = 0
+    st.session_state.show_poem = False
+
+# YouTube video iframe
+video_html = """
+<iframe id="youtube-video" 
+        src="https://www.youtube.com/embed/B8eF-UACAPQ?autoplay=0&mute=0&loop=1&playlist=B8eF-UACAPQ&controls=1&enablejsapi=1" 
+        frameborder="0" 
+        allow="autoplay; encrypted-media" 
+        allowfullscreen 
+        style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 8vw; height: 4vh; z-index: 10; border-radius: 10px; box-shadow: 0 0 10px rgba(255, 192, 203, 0.6); transition: all 0.5s ease-in-out;">
+</iframe>
+<div id="video-prompt" style="position: fixed; top: 40%; left: 50%; transform: translateX(-50%); z-index: 11; background: rgba(255, 192, 203, 0.8); color: #fff; padding: 5px 10px; border-radius: 5px; font-size: 1.5em; font-family: 'Great Vibes', cursive; text-align: center;">Click on the video to start :></div>
+"""
+st.components.v1.html(video_html, height=400)
+
+# Function to handle video click and start show
+def start_show():
+    st.session_state.step = 1
+
+# Add video interaction
+if st.button("Start Show" if st.session_state.step == 0 else "Restart Show", key="start_button"):
+    start_show()
+
+# Main show logic
+if st.session_state.step == 1:
+    # Intro sequence
+    if st.session_state.intro_index < len(intro_texts):
+        st.markdown(f'<div class="intro-text show">{intro_texts[st.session_state.intro_index]}</div>', unsafe_allow_html=True)
+        time.sleep(2.5)
+        st.session_state.intro_index += 1
+        st.experimental_rerun()
+    elif not st.session_state.show_poem:
+        # Slideshow
+        if st.session_state.slide_index < len(image_files):
+            img_file = image_files[st.session_state.slide_index]
+            try:
+                if os.path.exists(img_file):
+                    st.markdown('<div class="slide-text">', unsafe_allow_html=True)
+                    st.image(img_file, caption=captions[st.session_state.slide_index], width=300)
+                    st.markdown('</div>', unsafe_allow_html=True)
+                    st.markdown(f'<div class="caption">{captions[st.session_state.slide_index]}</div>', unsafe_allow_html=True)
+                    time.sleep(4)  # 3s display + 1s transition
+                    st.session_state.slide_index += 1
+                    st.experimental_rerun()
+            except Exception as e:
+                st.error(f"Failed to load {img_file}: {str(e)}")
+                st.session_state.slide_index += 1
+                st.experimental_rerun()
+        else:
+            # Poem
+            st.session_state.show_poem = True
+            st.markdown('<div class="poem-text show">' + poem + '</div>', unsafe_allow_html=True)
+            st.markdown('<style>body { background-color: #89CFF0; }</style>', unsafe_allow_html=True)
+
+# Debugging note
+if st.session_state.step > 0:
+    st.write("If issues persist, test raw URLs (e.g., https://raw.githubusercontent.com/yourusername/yourrepo/main/1.jpg).")
