@@ -136,12 +136,41 @@
 
   <!-- YOUTUBE VIDEO -->
   <iframe id="youtube-video" 
-          src="https://www.youtube.com/embed/B8eF-UACAPQ?autoplay=1&mute=1&loop=1&playlist=B8eF-UACAPQ&controls=1" 
+          src="https://www.youtube.com/embed/B8eF-UACAPQ?autoplay=1&mute=0&loop=1&playlist=B8eF-UACAPQ&controls=1" 
           frameborder="0" 
           allow="autoplay; encrypted-media" 
           allowfullscreen></iframe>
 
   <script>
+    // Load YouTube Iframe API
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    var player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('youtube-video', {
+        events: {
+          'onReady': onPlayerReady,
+          'onError': onPlayerError
+        }
+      });
+    }
+
+    function onPlayerReady(event) {
+      // Attempt unmuted playback
+      player.playVideo();
+      player.unMute();
+    }
+
+    function onPlayerError(event) {
+      console.error('YouTube Player Error:', event.data);
+      // Fallback to muted playback if unmuted fails
+      player.mute();
+      player.playVideo();
+    }
+
     // HEART ANIMATION
     const heartContainer = document.getElementById('hearts-container');
     for (let i = 0; i < 40; i++) {
