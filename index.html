@@ -145,8 +145,8 @@
 
   <!-- MUSIC -->
   <audio id="background-music" loop>
-    <source src="music.mp3" type="audio/mpeg">
-    <source src="music.ogg" type="audio/ogg">
+    <source src="/static/music.mp3" type="audio/mpeg">
+    <source src="/static/music.ogg" type="audio/ogg">
     Your browser does not support the audio element.
   </audio>
 
@@ -174,12 +174,14 @@
         playButton.style.display = 'none'; // Hide button after playback starts
       }).catch(error => {
         console.error('Audio playback failed:', error);
+        alert('Failed to play audio. Check if music.mp3 is in the static folder or if the file is valid.');
       });
     });
 
     // Log audio loading errors
     audio.addEventListener('error', () => {
-      console.error('Audio file failed to load. Check if music.mp3 or music.ogg exists in the correct directory.');
+      console.error('Audio file failed to load. Check if /static/music.mp3 exists and is accessible.');
+      alert('Audio file failed to load. Ensure music.mp3 is in the static folder.');
     });
 
     // INTRO TEXT SEQUENCE
