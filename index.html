@@ -2,126 +2,357 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SATyr Chatbot Intro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy 5 Months, Janu 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400&family=Great+Vibes&family=Sacramento&display=swap" rel="stylesheet">
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      background-color: black;
-      height: 100%;
+      background: black;
       overflow: hidden;
+      height: 100vh;
+      font-family: 'Great Vibes', 'Dancing Script', 'Sacramento', cursive;
+      color: #fff;
+      transition: background 2s ease-in-out;
     }
-    #container {
+
+    .hearts {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .heart {
+      color: #ff4d6d;
+      font-size: 2rem;
+      position: absolute;
+      bottom: -20px;
+      animation: rise 10s linear infinite;
+    }
+
+    @keyframes rise {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
+    }
+
+    .text, .slide, .poem {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      height: 100%;
-      position: relative;
+      align-items: center;
+      z-index: 5;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      text-align: center;
+      padding: 0 20px;
+      box-sizing: border-box;
     }
-    iframe {
-      width: 100vw;
-      height: 100vh;
-      max-width: 100%;
-      max-height: 100%;
-      border: none;
+
+    .text.show,
+    .slide.show,
+    .poem.show {
+      opacity: 1;
     }
-    #video-prompt {
+
+    .text {
+      font-size: 3em;
+      color: #fff;
+    }
+
+    #bigIntro {
+      font-size: 5em;
+      color: #fff;
+    }
+
+    .image {
+      max-width: 70vw;
+      max-height: 60vh;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(255, 192, 203, 0.6);
+    }
+
+    .caption {
+      font-size: 2.5em;
+      color: #f5f5f5;
+      margin-top: 30px;
+      max-width: 80%;
+    }
+
+    .poem {
+      font-size: 3em;
+      color: #f5f5f5;
+      font-style: italic;
+      max-width: 80%;
+      margin-top: 20px;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+    }
+
+    #slideshow {
       position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 5;
+    }
+
+    #youtube-video {
+      position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      color: white;
-      font-size: 1.5rem;
-      text-align: center;
+      width: 8vw;
+      height: 4vh;
       z-index: 10;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255, 192, 203, 0.6);
+      transition: all 0.5s ease-in-out;
     }
-    #unmute-button {
-      display: none;
+
+    #video-prompt {
       position: fixed;
-      bottom: 20px;
+      top: 40%;
       left: 50%;
       transform: translateX(-50%);
-      background: #ff4d6d;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-size: 1.2em;
-      z-index: 20;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      z-index: 11;
+      background: rgba(255, 192, 203, 0.8);
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 1.5em;
+      font-family: 'Great Vibes', cursive;
+      text-align: center;
+    }
+
+    /* Mobile-specific styles */
+    @media screen and (max-width: 768px) {
+      html, body {
+        overflow-y: auto;
+      }
+
+      .text {
+        font-size: 2em;
+      }
+
+      #bigIntro {
+        font-size: 3em;
+      }
+
+      .image {
+        max-width: 90vw;
+        max-height: 50vh;
+      }
+
+      .caption {
+        font-size: 1.5em;
+        margin-top: 20px;
+      }
+
+      .poem {
+        font-size: 2em;
+        max-width: 90%;
+      }
+
+      .heart {
+        font-size: 1.5rem;
+      }
+
+      #youtube-video {
+        display: none;
+      }
+
+      #video-prompt {
+        display: none;
+      }
     }
   </style>
 </head>
 <body>
-  <div id="container">
-    <div id="video-prompt">Click on the video to begin</div>
-    <iframe id="youtube-video" src="https://www.youtube.com/embed/B8eF-UACAPQ?enablejsapi=1&loop=1&playlist=B8eF-UACAPQ&controls=0" allow="autoplay; encrypted-media"></iframe>
+
+  <!-- HEARTS -->
+  <div class="hearts" id="hearts-container"></div>
+
+  <!-- INTRO TEXTS -->
+  <div class="text" id="intro1">My dearest Janu</div>
+  <div class="text" id="intro2">Five months have passed, and with each one</div>
+  <div class="text" id="intro3">My love for you grows like the morning sun.</div>
+  <div class="text" id="intro4">In your arms, I find my place,</div>
+  <div class="text" id="intro5">With every smile, a sweet embrace.</div>
+  <div class="text" id="intro6">Forever, Janu, you're my heart's grace.</div>
+  <div class="text" id="intro7">today marks a wonderful day of celebration cuz we made it so far!</div>
+  <div class="text" id="bigIntro">and to remember this day, heres a throwback to our relationship so far!</div>
+
+  <!-- SLIDESHOW -->
+  <div id="slideshow"></div>
+
+  <!-- FINAL POEM -->
+  <div class="poem" id="poem-text">
+    Five months, just us, hand in hand, <br>
+    In love’s soft glow, we’ve come to stand. <br>
+    Each laugh, each look, each little kiss <br>
+    A journey built on quiet bliss. <br>
+    You’re my calm, my spark, my song, <br>
+    With you is where my heart belongs.<br>
+    So here’s to us, and all we’ll do—<br>
+    Forever starts, and stays, with you...
   </div>
 
-  <button id="unmute-button">🔊 Unmute</button>
+  <!-- YOUTUBE VIDEO -->
+  <iframe id="youtube-video" 
+          src="https://www.youtube.com/embed/B8eF-UACAPQ?autoplay=0&mute=0&loop=1&playlist=B8eF-UACAPQ&controls=1&enablejsapi=1" 
+          frameborder="0" 
+          allow="autoplay; encrypted-media" 
+          allowfullscreen></iframe>
 
-  <!-- Load YouTube Iframe API -->
-  <script src="https://www.youtube.com/iframe_api"></script>
+  <!-- VIDEO PROMPT -->
+  <div id="video-prompt">Click on the video to start :> </div>
+
   <script>
-    let autoplayOnMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    if (autoplayOnMobile) {
-      // Hide prompt and update video src to autoplay muted
-      document.getElementById('video-prompt').style.display = 'none';
-      document.getElementById('unmute-button').style.display = 'block';
-      const video = document.getElementById('youtube-video');
-      video.src = "https://www.youtube.com/embed/B8eF-UACAPQ?autoplay=1&mute=1&loop=1&playlist=B8eF-UACAPQ&controls=0&enablejsapi=1";
-    }
+    // Mobile detection
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-    let player;
-
+    var player;
     function onYouTubeIframeAPIReady() {
       player = new YT.Player('youtube-video', {
         events: {
-          'onReady': (event) => {
-            if (autoplayOnMobile) {
-              event.target.mute();
-              event.target.playVideo();
-            }
-          },
+          'onReady': onPlayerReady,
           'onStateChange': onPlayerStateChange
         }
       });
     }
 
+    function onPlayerReady(event) {
+      if (isMobile) {
+        startShow();
+      }
+    }
+
     function onPlayerStateChange(event) {
-      if (event.data === YT.PlayerState.PLAYING) {
-        if (!autoplayOnMobile) {
-          minimizeVideo();
-        }
+      if (!isMobile && event.data === YT.PlayerState.PLAYING) {
+        minimizeVideo();
         startShow();
       }
     }
 
     function minimizeVideo() {
-      const iframe = document.getElementById('youtube-video');
-      iframe.style.position = 'absolute';
-      iframe.style.top = '0';
-      iframe.style.left = '0';
-      iframe.style.width = '100vw';
-      iframe.style.height = '100vh';
-      iframe.style.zIndex = '-1';
+      document.getElementById('youtube-video').style.display = 'none';
       document.getElementById('video-prompt').style.display = 'none';
     }
 
     function startShow() {
-      // Add your actual chatbot UI logic here
-      console.log("Show starting...");
+      const intros = [
+        document.getElementById('intro1'),
+        document.getElementById('intro2'),
+        document.getElementById('intro3'),
+        document.getElementById('intro4'),
+        document.getElementById('intro5'),
+        document.getElementById('intro6'),
+        document.getElementById('intro7'),
+      ];
+      const bigIntro = document.getElementById('bigIntro');
+      let currentIntro = 0;
+
+      function showIntro() {
+        if (currentIntro >= intros.length) {
+          setTimeout(showFinalIntro, 1000);
+          return;
+        }
+
+        const current = intros[currentIntro];
+        current.style.display = 'flex';
+
+        setTimeout(() => {
+          current.classList.add('show');
+        }, 100);
+
+        setTimeout(() => {
+          current.classList.remove('show');
+          setTimeout(() => {
+            current.style.display = 'none';
+            currentIntro++;
+            showIntro();
+          }, 1000);
+        }, 4000);
+      }
+
+      function showFinalIntro() {
+        bigIntro.style.display = 'flex';
+        setTimeout(() => bigIntro.classList.add('show'), 100);
+
+        setTimeout(() => {
+          bigIntro.classList.remove('show');
+          setTimeout(() => {
+            bigIntro.style.display = 'none';
+            document.body.style.background = '#89CFF0';
+            setTimeout(startSlideshow, 1500);
+          }, 1000);
+        }, 5000);
+      }
+
+      showIntro();
+
+      const slides = []; // Add your images & captions here
+
+      const slideshow = document.getElementById('slideshow');
+      const poemText = document.getElementById('poem-text');
+      const heartContainer = document.getElementById('hearts-container');
+
+      function startSlideshow() {
+        let index = 0;
+        function showSlide() {
+          if (index >= slides.length) {
+            heartContainer.style.display = 'none';
+            slideshow.innerHTML = '';
+            setTimeout(() => {
+              poemText.classList.add('show');
+            }, 1000);
+            return;
+          }
+
+          const slide = document.createElement('div');
+          slide.className = 'slide';
+          slide.innerHTML = ` 
+            <img src="${slides[index].src}" class="image" onerror="this.src='https://via.placeholder.com/300';">
+            <div class="caption">${slides[index].caption}</div>
+          `;
+          slideshow.innerHTML = '';
+          slideshow.appendChild(slide);
+
+          setTimeout(() => slide.classList.add('show'), 100);
+          setTimeout(() => slide.classList.remove('show'), 3000);
+
+          index++;
+          setTimeout(showSlide, 4000);
+        }
+
+        showSlide();
+      }
     }
 
-    document.getElementById('unmute-button').addEventListener('click', () => {
-      if (player) {
-        player.unMute();
-        document.getElementById('unmute-button').style.display = 'none';
-      }
-    });
+    // HEARTS
+    const heartContainer = document.getElementById('hearts-container');
+    for (let i = 0; i < 40; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerText = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+      heartContainer.appendChild(heart);
+    }
   </script>
 </body>
 </html>
