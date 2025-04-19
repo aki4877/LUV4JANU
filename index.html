@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Happy 5 Months, Jani 💖</title>
+  <title>Happy 5 Months, Janu 💖</title>
   <style>
     html, body {
       margin: 0;
@@ -12,14 +12,18 @@
       height: 100vh;
       font-family: 'Brush Script MT', cursive;
       color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
     }
 
     .hearts {
-      position: absolute;
+      position: fixed;
       width: 100%;
       height: 100%;
-      pointer-events: none;
       z-index: 1;
+      pointer-events: none;
     }
 
     .heart {
@@ -31,105 +35,33 @@
     }
 
     @keyframes rise {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-120vh) scale(1.5);
-        opacity: 0;
-      }
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
     }
 
-    .text {
+    .text, .slide {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: pink;
-      font-size: 3em;
       text-align: center;
+      color: pink;
+      z-index: 5;
       opacity: 0;
       transition: opacity 1s ease-in-out;
-      z-index: 10;
     }
 
-    .text.show {
+    .text.show, .slide.show {
       opacity: 1;
     }
 
-    .carousel-container {
-      display: none;
-      background: url('background.jpg') no-repeat center center fixed;
-      background-size: cover;
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      text-align: center;
-      padding-top: 60px;
-      box-sizing: border-box;
-    }
-
-    h1 {
-      font-size: 3em;
-      color: pink;
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 10px #ff9ff3; }
-      to   { text-shadow: 0 0 20px #f368e0; }
-    }
-
-    p {
-      font-size: 1.5em;
-      color: white;
-      max-width: 80%;
-      margin: 0 auto 1em auto;
-      background: rgba(0, 0, 0, 0.4);
-      padding: 1em;
+    .image {
+      max-width: 80vw;
+      max-height: 60vh;
       border-radius: 20px;
+      box-shadow: 0 0 30px rgba(255, 192, 203, 0.6);
     }
 
-    .carousel {
-      position: relative;
-      width: 90%;
-      max-width: 800px;
-      margin: 2em auto;
-      overflow: hidden;
-      border-radius: 20px;
-      box-shadow: 0 10px 20px rgba(255,192,203,0.5);
-    }
-
-    .slides {
-      display: flex;
-      width: calc(100% * 15);
-      animation: slide 60s infinite;
-    }
-
-    .slides img {
-      width: 100%;
-      height: auto;
-      flex-shrink: 0;
-    }
-
-    @keyframes slide {
-      0%   { transform: translateX(0%); }
-      6.66%  { transform: translateX(-100%); }
-      13.33% { transform: translateX(-200%); }
-      20%    { transform: translateX(-300%); }
-      26.66% { transform: translateX(-400%); }
-      33.33% { transform: translateX(-500%); }
-      40%    { transform: translateX(-600%); }
-      46.66% { transform: translateX(-700%); }
-      53.33% { transform: translateX(-800%); }
-      60%    { transform: translateX(-900%); }
-      66.66% { transform: translateX(-1000%); }
-      73.33% { transform: translateX(-1100%); }
-      80%    { transform: translateX(-1200%); }
-      86.66% { transform: translateX(-1300%); }
-      93.33% { transform: translateX(-1400%); }
-      100%   { transform: translateX(0%); }
+    .caption {
+      font-size: 2em;
+      margin-top: 20px;
     }
 
     audio {
@@ -142,85 +74,105 @@
   <!-- HEART ANIMATION -->
   <div class="hearts" id="hearts-container"></div>
 
-  <!-- INTRO TEXT SEQUENCE -->
-  <div class="text" id="text1">My dearest Janu</div>
-  <div class="text" id="text2">5 months together</div>
-  <div class="text" id="text3">Every day with you is magic</div>
-  <div class="text" id="text4">You are my heart, my peace</div>
-  <div class="text" id="text5">Here’s to forever, my love 💖</div>
+  <!-- INTRO TEXTS -->
+  <div class="text" id="intro1">My dearest Janu</div>
+  <div class="text" id="intro2">5 months together</div>
+  <div class="text" id="intro3">Every day with you is magic</div>
+  <div class="text" id="intro4">You are my heart, my peace</div>
+  <div class="text" id="intro5">Here’s to forever, my love 💖</div>
 
-  <!-- GALLERY SECTION -->
-  <div class="carousel-container" id="carousel-container">
-    <h1>Our Memories ❤️</h1>
-    <p>Every smile, every look, every moment — I treasure them all. These 5 months were just the beginning.</p>
+  <!-- IMAGE + CAPTION SLIDES -->
+  <div id="slideshow"></div>
 
-    <div class="carousel">
-      <div class="slides">
-        <img src="1.jpg" />
-        <img src="2.jpg" />
-        <img src="3.jpg" />
-        <img src="4.jpg" />
-        <img src="5.jpg" />
-        <img src="6.jpg" />
-        <img src="7.jpg" />
-        <img src="8.jpg" />
-        <img src="9.jpg" />
-        <img src="10.jpg" />
-        <img src="11.jpg" />
-        <img src="12.jpg" />
-        <img src="13.jpg" />
-        <img src="14.jpg" />
-        <img src="15.jpg" />
-      </div>
-    </div>
-  </div>
-
-  <!-- MUSIC -->
+  <!-- BACKGROUND MUSIC -->
   <audio autoplay loop>
     <source src="music.mp3" type="audio/mpeg">
   </audio>
 
   <script>
-    // Floating hearts
+    // HEART ANIMATION
     const heartContainer = document.getElementById('hearts-container');
-    const heartCount = 40;
-    for (let i = 0; i < heartCount; i++) {
+    for (let i = 0; i < 40; i++) {
       const heart = document.createElement('div');
       heart.className = 'heart';
+      heart.innerText = '❤️';
       heart.style.left = Math.random() * 100 + 'vw';
       heart.style.animationDuration = (5 + Math.random() * 5) + 's';
-      heart.innerText = '❤️';
       heartContainer.appendChild(heart);
     }
 
-    // Text transitions
-    const texts = [
-      document.getElementById('text1'),
-      document.getElementById('text2'),
-      document.getElementById('text3'),
-      document.getElementById('text4'),
-      document.getElementById('text5')
+    // INTRO TEXT SEQUENCE
+    const intros = [
+      document.getElementById('intro1'),
+      document.getElementById('intro2'),
+      document.getElementById('intro3'),
+      document.getElementById('intro4'),
+      document.getElementById('intro5')
     ];
 
-    let current = 0;
-
-    function showNextText() {
-      if (current > 0) texts[current - 1].classList.remove('show');
-      if (current < texts.length) {
-        texts[current].classList.add('show');
-        current++;
-        setTimeout(showNextText, 3000); // 1s fade + 2s hold
+    let currentIntro = 0;
+    function showIntro() {
+      if (currentIntro > 0) intros[currentIntro - 1].classList.remove('show');
+      if (currentIntro < intros.length) {
+        intros[currentIntro].classList.add('show');
+        currentIntro++;
+        setTimeout(showIntro, 2500);
       } else {
-        // After all texts, show carousel
-        setTimeout(() => {
-          document.body.style.overflow = 'auto';
-          document.querySelectorAll('.text, .hearts').forEach(el => el.style.display = 'none');
-          document.getElementById('carousel-container').style.display = 'block';
-        }, 2000);
+        // start slideshow
+        setTimeout(startSlideshow, 2000);
       }
     }
 
-    window.onload = showNextText;
+    window.onload = showIntro;
+
+    // SLIDESHOW
+    const captions = [
+      "The day it all began — your smile changed everything.",
+      "Our first photo together — I knew we were something special.",
+      "Laughing like kids, loving like soulmates.",
+      "Late night talks, sleepy eyes, full hearts.",
+      "You looked at me like I was home.",
+      "A stolen kiss, forever etched in my mind.",
+      "Holding your hand felt like holding the universe.",
+      "Every second with you is a favorite memory.",
+      "You make ordinary moments feel magical.",
+      "From “I like you” to “I love you” — my favorite journey.",
+      "The way you look at me when I talk — I never felt so heard.",
+      "A thousand lifetimes wouldn’t be enough with you.",
+      "Even silence feels like love when I’m with you.",
+      "We’re not perfect, but we’re perfect for each other.",
+      "5 months down, forever to go — I love you, Janu."
+    ];
+
+    const slideshow = document.getElementById('slideshow');
+
+    function startSlideshow() {
+      // Hide all intros
+      intros.forEach(t => t.style.display = 'none');
+
+      let index = 1;
+      function showSlide() {
+        if (index > 15) return;
+
+        const slide = document.createElement('div');
+        slide.className = 'slide show';
+        slide.innerHTML = `
+          <img src="${index}.jpg" class="image" />
+          <div class="caption">${captions[index - 1]}</div>
+        `;
+        slideshow.innerHTML = '';
+        slideshow.appendChild(slide);
+
+        setTimeout(() => {
+          slide.classList.remove('show');
+        }, 3000);
+
+        index++;
+        setTimeout(showSlide, 4000); // time per slide
+      }
+
+      showSlide();
+    }
   </script>
 </body>
 </html>
