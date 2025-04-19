@@ -65,6 +65,12 @@
       color: #fff;
     }
 
+    .text.final {
+      font-size: 4em;
+      color: #ffccff;
+      font-weight: bold;
+    }
+
     .image {
       max-width: 70vw;
       max-height: 60vh;
@@ -146,8 +152,10 @@
   <div class="text" id="intro3">Every day with you is magic</div>
   <div class="text" id="intro4">You are my heart, my peace</div>
   <div class="text" id="intro5">Here’s to forever, my love 💖</div>
- 
-
+  <div class="text" id="intro6">Through ups and downs</div>
+  <div class="text" id="intro7">You've been my strength</div>
+  <div class="text" id="intro8">My laughter, my safe place</div>
+  <div class="text final" id="final-intro">I love you more than words can say 💗</div>
 
   <!-- SLIDESHOW -->
   <div id="slideshow"></div>
@@ -190,7 +198,7 @@
     }
 
     function onPlayerReady(event) {
-      // Ensure video is ready but wait for user interaction
+      // Waiting for user interaction
     }
 
     function onPlayerStateChange(event) {
@@ -200,54 +208,62 @@
       }
     }
 
-    // Minimize video and start the show
     function minimizeVideo() {
       const video = document.getElementById('youtube-video');
       video.style.display = 'none';
       document.getElementById('video-prompt').style.display = 'none';
     }
 
-    // Start the show (intro, slideshow, poem)
     function startShow() {
       const intros = [
         document.getElementById('intro1'),
         document.getElementById('intro2'),
         document.getElementById('intro3'),
         document.getElementById('intro4'),
-        document.getElementById('intro5')
+        document.getElementById('intro5'),
+        document.getElementById('intro6'),
+        document.getElementById('intro7'),
+        document.getElementById('intro8')
       ];
 
+      const finalIntro = document.getElementById('final-intro');
+      const slideshow = document.getElementById('slideshow');
+      const poemText = document.getElementById('poem-text');
+      const heartContainer = document.getElementById('hearts-container');
+
       let currentIntro = 0;
+
       function showIntro() {
-        if (currentIntro > 0) {
+        if (currentIntro > 0 && currentIntro <= intros.length) {
           intros[currentIntro - 1].classList.remove('show');
           intros[currentIntro - 1].style.display = 'none';
         }
+
         if (currentIntro < intros.length) {
           intros[currentIntro].classList.add('show');
           currentIntro++;
           setTimeout(showIntro, 2500);
         } else {
-          intros.forEach(intro => {
-            intro.classList.remove('show');
-            intro.style.display = 'none';
-          });
-          setTimeout(startSlideshow, 2000);
+          setTimeout(() => {
+            finalIntro.classList.add('show');
+          }, 1000);
+
+          setTimeout(() => {
+            finalIntro.classList.remove('show');
+            finalIntro.style.display = 'none';
+            setTimeout(() => {
+              document.body.style.background = '#89CFF0';
+              setTimeout(startSlideshow, 1000);
+            }, 1000);
+          }, 4000);
         }
       }
 
       showIntro();
 
-      // Slides array will be injected by Python
-      const slides = [];
-
-      const slideshow = document.getElementById('slideshow');
-      const poemText = document.getElementById('poem-text');
-      const heartContainer = document.getElementById('hearts-container');
+      const slides = []; // Add slide objects here
 
       function startSlideshow() {
-        document.body.style.background = '#89CFF0';
-
         let index = 0;
         function showSlide() {
           if (index >= slides.length) {
