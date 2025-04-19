@@ -52,7 +52,9 @@
       padding: 0 20px;
     }
 
-    .text.show, .slide.show, .poem.show {
+    .text.show,
+    .slide.show,
+    .poem.show {
       opacity: 1;
     }
 
@@ -82,7 +84,7 @@
       max-width: 80%;
       margin-top: 20px;
       opacity: 0;
-      transition: opacity 2s ease-in-out; /* Make the poem fade in */
+      transition: opacity 2s ease-in-out;
     }
 
     #slideshow {
@@ -110,10 +112,10 @@
   <div class="text" id="intro4">You are my heart, my peace</div>
   <div class="text" id="intro5">Here’s to forever, my love 💖</div>
 
-  <!-- IMAGE + CAPTION SLIDES -->
+  <!-- SLIDESHOW -->
   <div id="slideshow"></div>
 
-  <!-- POEM TEXT (this will fade in and stay) -->
+  <!-- FINAL POEM -->
   <div class="poem" id="poem-text">
     You are the sun that lights my sky, <br>
     The one I hold, the one I’ll try, <br>
@@ -123,7 +125,7 @@
     It’s you and me, forever to be.
   </div>
 
-  <!-- BACKGROUND MUSIC -->
+  <!-- MUSIC -->
   <audio autoplay loop>
     <source src="music.mp3" type="audio/mpeg">
   </audio>
@@ -192,7 +194,6 @@
       let index = 1;
       function showSlide() {
         if (index > 15) {
-          // Show the poem after the last image
           setTimeout(() => {
             poemText.classList.add('show');
           }, 1000);
@@ -200,7 +201,7 @@
         }
 
         const slide = document.createElement('div');
-        slide.className = 'slide show';
+        slide.className = 'slide';
         slide.innerHTML = `
           <img src="${index}.jpg" class="image" />
           <div class="caption">${captions[index - 1]}</div>
@@ -209,11 +210,15 @@
         slideshow.appendChild(slide);
 
         setTimeout(() => {
-          slide.classList.remove('show');
+          slide.classList.add('show');
+        }, 100); // fade in
+
+        setTimeout(() => {
+          slide.classList.remove('show'); // fade out
         }, 3000);
 
         index++;
-        setTimeout(showSlide, 4000); // delay between slides
+        setTimeout(showSlide, 4000); // wait before next
       }
 
       showSlide();
