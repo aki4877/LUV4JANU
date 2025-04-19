@@ -154,11 +154,16 @@
 
     let currentIntro = 0;
     function showIntro() {
-      if (currentIntro > 0) intros[currentIntro - 1].classList.remove('show');
+      if (currentIntro > 0) {
+        intros[currentIntro - 1].classList.remove('show');
+      }
+
       if (currentIntro < intros.length) {
-        intros[currentIntro].classList.add('show');
-        currentIntro++;
-        setTimeout(showIntro, 2500);
+        setTimeout(() => {
+          intros[currentIntro].classList.add('show');
+          currentIntro++;
+          setTimeout(showIntro, 1500); // visible for 1.5s
+        }, 1000); // 1-second blank gap before showing next
       } else {
         setTimeout(startSlideshow, 2000);
       }
