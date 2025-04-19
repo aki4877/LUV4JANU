@@ -219,12 +219,16 @@
       function showIntro() {
         if (currentIntro > 0) {
           intros[currentIntro - 1].classList.remove('show');
-          intros[currentIntro - 1].style.display = 'none';
+          // Wait for the fade-out transition to complete (1 second)
+          setTimeout(() => {
+            intros[currentIntro - 1].style.display = 'none';
+          }, 1000);
         }
         if (currentIntro < intros.length) {
+          intros[currentIntro].style.display = 'block';
           intros[currentIntro].classList.add('show');
           currentIntro++;
-          setTimeout(showIntro, 2500);
+          setTimeout(showIntro, 3500); // Increased from 2500 to 3500 for smoother transition
         } else {
           intros.forEach(intro => {
             intro.classList.remove('show');
