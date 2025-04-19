@@ -4,57 +4,132 @@
   <meta charset="UTF-8" />
   <title>Happy 5 Months, Jani 💖</title>
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
-      background: url('background.jpg') no-repeat center center fixed;
-      background-size: cover;
+      background: black;
+      overflow: hidden;
+      height: 100vh;
       font-family: 'Brush Script MT', cursive;
       color: #fff;
+    }
+
+    .hearts {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .heart {
+      color: #ff4d6d;
+      font-size: 2rem;
+      position: absolute;
+      bottom: -20px;
+      animation: rise 10s linear infinite;
+    }
+
+    @keyframes rise {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    .text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: pink;
+      font-size: 3em;
       text-align: center;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      z-index: 10;
+    }
+
+    .text.show {
+      opacity: 1;
+    }
+
+    .carousel-container {
+      display: none;
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      width: 100vw;
+      height: 100vh;
       overflow: hidden;
+      text-align: center;
+      padding-top: 60px;
+      box-sizing: border-box;
     }
 
     h1 {
-      font-size: 4em;
-      margin-top: 1em;
+      font-size: 3em;
       color: pink;
       animation: glow 2s ease-in-out infinite alternate;
     }
 
-    p {
-      font-size: 1.5em;
-      max-width: 80%;
-      margin: 1em auto;
-      background: rgba(0, 0, 0, 0.5);
-      padding: 1em;
-      border-radius: 20px;
-      line-height: 1.6em;
-    }
-
     @keyframes glow {
       from { text-shadow: 0 0 10px #ff9ff3; }
-      to { text-shadow: 0 0 20px #f368e0; }
+      to   { text-shadow: 0 0 20px #f368e0; }
     }
 
-    .heart {
-      position: fixed;
-      width: 20px;
-      height: 20px;
-      background: url('https://i.imgur.com/1bX5QH6.png') no-repeat center;
-      background-size: contain;
-      animation: float 6s infinite;
+    p {
+      font-size: 1.5em;
+      color: white;
+      max-width: 80%;
+      margin: 0 auto 1em auto;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 1em;
+      border-radius: 20px;
     }
 
-    @keyframes float {
-      0% {
-        transform: translateY(100vh) scale(1);
-        opacity: 0.5;
-      }
-      100% {
-        transform: translateY(-100vh) scale(1.5);
-        opacity: 0;
-      }
+    .carousel {
+      position: relative;
+      width: 90%;
+      max-width: 800px;
+      margin: 2em auto;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(255,192,203,0.5);
+    }
+
+    .slides {
+      display: flex;
+      width: calc(100% * 15);
+      animation: slide 60s infinite;
+    }
+
+    .slides img {
+      width: 100%;
+      height: auto;
+      flex-shrink: 0;
+    }
+
+    @keyframes slide {
+      0%   { transform: translateX(0%); }
+      6.66%  { transform: translateX(-100%); }
+      13.33% { transform: translateX(-200%); }
+      20%    { transform: translateX(-300%); }
+      26.66% { transform: translateX(-400%); }
+      33.33% { transform: translateX(-500%); }
+      40%    { transform: translateX(-600%); }
+      46.66% { transform: translateX(-700%); }
+      53.33% { transform: translateX(-800%); }
+      60%    { transform: translateX(-900%); }
+      66.66% { transform: translateX(-1000%); }
+      73.33% { transform: translateX(-1100%); }
+      80%    { transform: translateX(-1200%); }
+      86.66% { transform: translateX(-1300%); }
+      93.33% { transform: translateX(-1400%); }
+      100%   { transform: translateX(0%); }
     }
 
     audio {
@@ -63,29 +138,89 @@
   </style>
 </head>
 <body>
-  <h1>Happy 5 Months, Jani 💗</h1>
-  <p>
-    My sweet Janu,<br><br>
-    Five beautiful months have passed, and with each day, I fall even more in love with you. You are my sunshine on cloudy days, my calm in every storm, and the reason I smile without meaning to. <br><br>
-    Your love wraps around me like a warm hug from the universe, and I never want to live without it. Here's to us — to every shared laugh, every whispered dream, and all the heartbeats we’ve yet to share. <br><br>
-    I love you endlessly.<br>
-    Forever yours,<br>
-    ❤️
-  </p>
 
+  <!-- HEART ANIMATION -->
+  <div class="hearts" id="hearts-container"></div>
+
+  <!-- INTRO TEXT SEQUENCE -->
+  <div class="text" id="text1">My dearest Janu</div>
+  <div class="text" id="text2">5 months together</div>
+  <div class="text" id="text3">Every day with you is magic</div>
+  <div class="text" id="text4">You are my heart, my peace</div>
+  <div class="text" id="text5">Here’s to forever, my love 💖</div>
+
+  <!-- GALLERY SECTION -->
+  <div class="carousel-container" id="carousel-container">
+    <h1>Our Memories ❤️</h1>
+    <p>Every smile, every look, every moment — I treasure them all. These 5 months were just the beginning.</p>
+
+    <div class="carousel">
+      <div class="slides">
+        <img src="1.jpg" />
+        <img src="2.jpg" />
+        <img src="3.jpg" />
+        <img src="4.jpg" />
+        <img src="5.jpg" />
+        <img src="6.jpg" />
+        <img src="7.jpg" />
+        <img src="8.jpg" />
+        <img src="9.jpg" />
+        <img src="10.jpg" />
+        <img src="11.jpg" />
+        <img src="12.jpg" />
+        <img src="13.jpg" />
+        <img src="14.jpg" />
+        <img src="15.jpg" />
+      </div>
+    </div>
+  </div>
+
+  <!-- MUSIC -->
   <audio autoplay loop>
     <source src="music.mp3" type="audio/mpeg">
   </audio>
 
   <script>
     // Floating hearts
-    for (let i = 0; i < 30; i++) {
+    const heartContainer = document.getElementById('hearts-container');
+    const heartCount = 40;
+    for (let i = 0; i < heartCount; i++) {
       const heart = document.createElement('div');
-      heart.classList.add('heart');
+      heart.className = 'heart';
       heart.style.left = Math.random() * 100 + 'vw';
       heart.style.animationDuration = (5 + Math.random() * 5) + 's';
-      document.body.appendChild(heart);
+      heart.innerText = '❤️';
+      heartContainer.appendChild(heart);
     }
+
+    // Text transitions
+    const texts = [
+      document.getElementById('text1'),
+      document.getElementById('text2'),
+      document.getElementById('text3'),
+      document.getElementById('text4'),
+      document.getElementById('text5')
+    ];
+
+    let current = 0;
+
+    function showNextText() {
+      if (current > 0) texts[current - 1].classList.remove('show');
+      if (current < texts.length) {
+        texts[current].classList.add('show');
+        current++;
+        setTimeout(showNextText, 3000); // 1s fade + 2s hold
+      } else {
+        // After all texts, show carousel
+        setTimeout(() => {
+          document.body.style.overflow = 'auto';
+          document.querySelectorAll('.text, .hearts').forEach(el => el.style.display = 'none');
+          document.getElementById('carousel-container').style.display = 'block';
+        }, 2000);
+      }
+    }
+
+    window.onload = showNextText;
   </script>
 </body>
 </html>
