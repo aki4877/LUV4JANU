@@ -2,311 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Happy 5 Months, Janu 💖</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <title>Image Test</title>
   <style>
-    html, body {
+    body {
       margin: 0;
-      padding: 0;
-      background: black;
-      overflow: hidden;
-      height: 100vh;
-      font-family: 'Great Vibes', cursive;
-      color: #fff;
-      transition: background 2s ease-in-out;
+      padding: 20px;
+      background: #000;
     }
-
-    .hearts {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    .heart {
-      color: #ff4d6d;
-      font-size: 2rem;
-      position: absolute;
-      bottom: -20px;
-      animation: rise 10s linear infinite;
-    }
-
-    @keyframes rise {
-      0% { transform: translateY(0) scale(1); opacity: 1; }
-      100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
-    }
-
-    .text, .slide, .poem {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 5;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-      text-align: center;
-      padding: 0 20px;
-    }
-
-    .text.show,
-    .slide.show,
-    .poem.show {
-      opacity: 1;
-    }
-
-    .text {
-      font-size: 3em;
-      color: #fff;
-    }
-
-    .image {
-      max-width: 70vw;
-      max-height: 60vh;
-      border-radius: 20px;
-      box-shadow: 0 0 30px rgba(255, 192, 203, 0.6);
-    }
-
-    .caption {
-      font-size: 2.5em;
-      color: #f5f5f5;
-      margin-top: 30px;
-      max-width: 80%;
-    }
-
-    .poem {
-      font-size: 3em;
-      color: #f5f5f5;
-      font-style: italic;
-      max-width: 80%;
-      margin-top: 20px;
-      opacity: 0;
-      transition: opacity 2s ease-in-out;
-    }
-
-    #slideshow {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 5;
-    }
-
-    #youtube-video {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 8vw;
-      height: 4vh;
-      z-index: 10;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(255, 192, 203, 0.6);
-      transition: all 0.5s ease-in-out;
-    }
-
-    #video-prompt {
-      position: fixed;
-      top: 40%;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 11;
-      background: rgba(255, 192, 203, 0.8);
-      color: #fff;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 1.5em;
-      font-family: 'Great Vibes', cursive;
-      text-align: center;
-    }
-
-    #video-prompt::after {
-      content: '';
+    img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 20px;
       display: block;
-      font-size: 1.8em;
-      line-height: 1;
-      margin-top: 2px;
     }
   </style>
 </head>
 <body>
-
-  <!-- HEART ANIMATION -->
-  <div class="hearts" id="hearts-container"></div>
-
-  <!-- INTRO TEXTS -->
-  <div class="text" id="intro1">My dearest Janu</div>
-  <div class="text" id="intro2">5 months together</div>
-  <div class="text" id="intro3">Every day with you is magic</div>
-  <div class="text" id="intro4">You are my heart, my peace</div>
-  <div class="text" id="intro5">Here’s to forever, my love 💖</div>
-
-  <!-- SLIDESHOW -->
-  <div id="slideshow"></div>
-
-  <!-- FINAL POEM -->
-  <div class="poem" id="poem-text">
-    You are the sun that lights my sky, <br>
-    The one I hold, the one I’ll try, <br>
-    Every heartbeat, every breath, <br>
-    I’ll love you through life and death. <br>
-    From now until eternity, <br>
-    It’s you and me, forever to be.
-  </div>
-
-  <!-- YOUTUBE VIDEO -->
-  <iframe id="youtube-video" 
-          src="https://www.youtube.com/embed/B8eF-UACAPQ?autoplay=0&mute=0&loop=1&playlist=B8eF-UACAPQ&controls=1&enablejsapi=1" 
-          frameborder="0" 
-          allow="autoplay; encrypted-media" 
-          allowfullscreen></iframe>
-
-  <!-- VIDEO PROMPT -->
-  <div id="video-prompt">Click on the video to start :> </div>
-
-  <script>
-    // Load YouTube IFrame API
-    var tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-    var player;
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('youtube-video', {
-        events: {
-          'onReady': onPlayerReady,
-          'onStateChange': onPlayerStateChange
-        }
-      });
-    }
-
-    function onPlayerReady(event) {
-      // Ensure video is ready but wait for user interaction
-    }
-
-    function onPlayerStateChange(event) {
-      if (event.data === YT.PlayerState.PLAYING) {
-        minimizeVideo();
-        startShow();
-      }
-    }
-
-    // Minimize video and start the show
-    function minimizeVideo() {
-      const video = document.getElementById('youtube-video');
-      video.style.display = 'none';
-      document.getElementById('video-prompt').style.display = 'none';
-    }
-
-    // Start the show (intro, slideshow, poem)
-    function startShow() {
-      const intros = [
-        document.getElementById('intro1'),
-        document.getElementById('intro2'),
-        document.getElementById('intro3'),
-        document.getElementById('intro4'),
-        document.getElementById('intro5')
-      ];
-
-      let currentIntro = 0;
-      function showIntro() {
-        if (currentIntro > 0) {
-          intros[currentIntro - 1].classList.remove('show');
-          intros[currentIntro - 1].style.display = 'none';
-        }
-        if (currentIntro < intros.length) {
-          intros[currentIntro].classList.add('show');
-          currentIntro++;
-          setTimeout(showIntro, 2500);
-        } else {
-          intros.forEach(intro => {
-            intro.classList.remove('show');
-            intro.style.display = 'none';
-          });
-          setTimeout(startSlideshow, 2000);
-        }
-      }
-
-      showIntro();
-
-      // Array of image paths and captions (images in root directory)
-      const slides = [
-        { src: '1.jpg', caption: 'The day it all began — your smile changed everything.' },
-        { src: '2.jpg', caption: 'Our first photo together — I knew we were something special.' },
-        { src: '3.jpg', caption: 'Laughing like kids, loving like soulmates.' },
-        { src: '4.jpg', caption: 'Late night talks, sleepy eyes, full hearts.' },
-        { src: '5.jpg', caption: 'You looked at me like I was home.' },
-        { src: '6.jpg', caption: 'A stolen kiss, forever etched in my mind.' },
-        { src: '7.jpg', caption: 'Holding your hand felt like holding the universe.' },
-        { src: '8.jpg', caption: 'Every second with you is a favorite memory.' },
-        { src: '9.jpg', caption: 'You make ordinary moments feel magical.' },
-        { src: '10.jpg', caption: 'From “I like you” to “I love you” — my favorite journey.' },
-        { src: '11.jpg', caption: 'The way you look at me when I talk — I never felt so heard.' },
-        { src: '12.jpg', caption: 'A thousand lifetimes wouldn’t be enough with you.' },
-        { src: '13.jpg', caption: 'Even silence feels like love when I’m with you.' },
-        { src: '14.jpg', caption: 'We’re not perfect, but we’re perfect for each other.' },
-        { src: '15.jpg', caption: '5 months down, forever to go — I love you, Janu.' }
-      ];
-
-      const slideshow = document.getElementById('slideshow');
-      const poemText = document.getElementById('poem-text');
-
-      function startSlideshow() {
-        document.body.style.background = '#89CFF0';
-
-        let index = 0;
-        function showSlide() {
-          if (index >= slides.length) {
-            heartContainer.style.display = 'none';
-            slideshow.innerHTML = '';
-            setTimeout(() => {
-              poemText.classList.add('show');
-            }, 1000);
-            return;
-          }
-
-          const slide = document.createElement('div');
-          slide.className = 'slide';
-          slide.innerHTML = `
-            <img src="${slides[index].src}" class="image" onerror="this.src='https://via.placeholder.com/300'; console.error('Failed to load image: ${slides[index].src}')">
-            <div class="caption">${slides[index].caption}</div>
-          `;
-          slideshow.innerHTML = '';
-          slideshow.appendChild(slide);
-
-          setTimeout(() => {
-            slide.classList.add('show');
-          }, 100);
-
-          setTimeout(() => {
-            slide.classList.remove('show');
-          }, 3000);
-
-          index++;
-          setTimeout(showSlide, 4000);
-        }
-
-        showSlide();
-      }
-    }
-
-    // HEART ANIMATION
-    const heartContainer = document.getElementById('hearts-container');
-    for (let i = 0; i < 40; i++) {
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.innerText = '❤️';
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.animationDuration = (5 + Math.random() * 5) + 's';
-      heartContainer.appendChild(heart);
-    }
-  </script>
+  <img src="1.jpg" alt="Image 1" onerror="console.error('Failed to load 1.jpg')">
+  <img src="2.jpg" alt="Image 2" onerror="console.error('Failed to load 2.jpg')">
+  <img src="3.jpg" alt="Image 3" onerror="console.error('Failed to load 3.jpg')">
+  <img src="4.jpg" alt="Image 4" onerror="console.error('Failed to load 4.jpg')">
+  <img src="5.jpg" alt="Image 5" onerror="console.error('Failed to load 5.jpg')">
+  <img src="6.jpg" alt="Image 6" onerror="console.error('Failed to load 6.jpg')">
+  <img src="7.jpg" alt="Image 7" onerror="console.error('Failed to load 7.jpg')">
+  <img src="8.jpg" alt="Image 8" onerror="console.error('Failed to load 8.jpg')">
+  <img src="9.jpg" alt="Image 9" onerror="console.error('Failed to load 9.jpg')">
+  <img src="10.jpg" alt="Image 10" onerror="console.error('Failed to load 10.jpg')">
+  <img src="11.jpg" alt="Image 11" onerror="console.error('Failed to load 11.jpg')">
+  <img src="12.jpg" alt="Image 12" onerror="console.error('Failed to load 12.jpg')">
+  <img src="13.jpg" alt="Image 13" onerror="Failed to load 13.jpg')">
+  <img src="14.jpg" alt="Image 14" onerror="console.error('Failed to load 14.jpg')">
+  <img src="15.jpg" alt="Image 15" onerror="console.error('Failed to load 15.jpg')">
 </body>
 </html>
