@@ -18,7 +18,7 @@ def get_image_base64(file_path):
 slides = [
     {"caption": "one of our first gmeets", "filename": "1.jpg"},
     {"caption": "akis first tatto for jani", "filename": "2.jpg"},
-    {"caption": "the eyes I feel in love with", "filename": "3.jpg"},
+    {"caption": "the eyes I fell in love with", "filename": "3.jpg"},
     {"caption": "the first pic I saw of u", "filename": "4.jpg"},
     {"caption": "how my gf looks like", "filename": "5.jpg"},
     {"caption": "but how it feels like talking to her", "filename": "6.jpg"},
