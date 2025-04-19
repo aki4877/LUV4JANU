@@ -133,6 +133,27 @@
       text-align: center;
     }
 
+    #mute-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 12;
+      background: rgba(255, 192, 203, 0.8);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.2em;
+      cursor: pointer;
+      display: none;
+      transition: background 0.3s ease;
+    }
+
+    #mute-toggle:hover {
+      background: rgba(255, 192, 203, 1);
+    }
+
     /* Mobile-specific styles */
     @media screen and (max-width: 768px) {
       html, body {
@@ -167,11 +188,18 @@
       }
 
       #youtube-video {
-        display: none;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0;
+        pointer-events: none;
       }
 
       #video-prompt {
         display: none;
+      }
+
+      #mute-toggle {
+        display: block;
       }
     }
   </style>
@@ -203,19 +231,21 @@
     You’re my calm, my spark, my song, <br>
     With you is where my heart belongs.<br>
     So here’s to us, and all we’ll do—<br>
-    Forever starts, and stays, with you...<br>
-    HAPPY 5TH MONTH-VERSARYY JANUUUUUUUU!
+    Forever starts, and stays, with you...
   </div>
 
   <!-- YOUTUBE VIDEO -->
   <iframe id="youtube-video" 
-          src="https://www.youtube.com/embed/B8eF-UACAPQ?autoplay=0&mute=0&loop=1&playlist=B8eF-UACAPQ&controls=1&enablejsapi=1" 
+          src="https://www.youtube.com/embed/B8eF-UACAPQ?autoplay=0&mute=1&loop=1&playlist=B8eF-UACAPQ&controls=1&enablejsapi=1" 
           frameborder="0" 
           allow="autoplay; encrypted-media" 
           allowfullscreen></iframe>
 
   <!-- VIDEO PROMPT -->
   <div id="video-prompt">Click on the video to start :> </div>
+
+  <!-- MUTE/UNMUTE BUTTON -->
+  <button id="mute-toggle">🔇</button>
 
   <script>
     var tag = document.createElement('script');
@@ -238,6 +268,8 @@
 
     function onPlayerReady(event) {
       if (isMobile) {
+        player.mute();
+        player.playVideo();
         startShow();
       }
     }
@@ -253,6 +285,18 @@
       document.getElementById('youtube-video').style.display = 'none';
       document.getElementById('video-prompt').style.display = 'none';
     }
+
+    // Mute/Unmute toggle
+    const muteToggle = document.getElementById('mute-toggle');
+    muteToggle.addEventListener('click', () => {
+      if (player.isMuted()) {
+        player.unMute();
+        muteToggle.innerText = '🔊';
+      } else {
+        player.mute();
+        muteToggle.innerText = '🔇';
+      }
+    });
 
     function startShow() {
       const intros = [
