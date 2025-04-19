@@ -91,7 +91,8 @@
 
     #slideshow {
       position: absolute;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       z-index: 5;
@@ -99,25 +100,37 @@
 
     #youtube-video {
       position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80vw;
+      height: 45vh;
+      z-index: 10;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255, 192, 203, 0.6);
+      transition: all 0.5s ease-in-out;
+    }
+
+    #youtube-video.minimized {
+      top: auto;
+      left: auto;
       bottom: 20px;
       right: 20px;
       width: 200px;
       height: 113px;
-      z-index: 10;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(255, 192, 203, 0.6);
     }
 
     #video-prompt {
       position: fixed;
-      bottom: 140px;
-      right: 20px;
+      top: 40%;
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 11;
       background: rgba(255, 192, 203, 0.8);
       color: #fff;
       padding: 5px 10px;
       border-radius: 5px;
-      font-size: 1.2em;
+      font-size: 1.5em;
       font-family: 'Great Vibes', cursive;
       text-align: center;
     }
@@ -125,7 +138,7 @@
     #video-prompt::after {
       content: '➡️';
       display: block;
-      font-size: 1.5em;
+      font-size: 1.8em;
       line-height: 1;
       margin-top: 2px;
     }
@@ -158,7 +171,7 @@
 
   <!-- YOUTUBE VIDEO -->
   <iframe id="youtube-video" 
-          src="https://www.youtube.com/embed/B8eF-UACAPQ?autoplay=0&mute=0&loop=1&playlist=B8eF-UACAPQ&controls=1" 
+          src="https://www.youtube.com/embed/B8eF-UACAPQ?autoplay=0&mute=0&loop=1&playlist=B8eF-UACAPQ&controls=1&enablejsapi=1" 
           frameborder="0" 
           allow="autoplay; encrypted-media" 
           allowfullscreen></iframe>
@@ -167,6 +180,124 @@
   <div id="video-prompt">Click on the video for music</div>
 
   <script>
+    // Load YouTube IFrame API
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    var player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('youtube-video', {
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+
+    function onPlayerReady(event) {
+      // Ensure video is ready but wait for user interaction
+    }
+
+    function onPlayerStateChange(event) {
+      if (event.data === YT.PlayerState.PLAYING) {
+        minimizeVideo();
+        startShow();
+      }
+    }
+
+    // Minimize video and start the show
+    function minimizeVideo() {
+      const video = document.getElementById('youtube-video');
+      video.classList.add('minimized');
+      document.getElementById('video-prompt').style.display = 'none';
+    }
+
+    // Start the show (intro, slideshow, poem)
+    function startShow() {
+      const intros = [
+        document.getElementById('intro1'),
+        document.getElementById('intro2'),
+        document.getElementById('intro3'),
+        document.getElementById('intro4'),
+        document.getElementById('intro5')
+      ];
+
+      let currentIntro = 0;
+      function showIntro() {
+        if (currentIntro > 0) intros[currentIntro - 1].classList.remove('show');
+        if (currentIntro < intros.length) {
+          intros[currentIntro].classList.add('show');
+          currentIntro++;
+          setTimeout(showIntro, 2500);
+        } else {
+          setTimeout(startSlideshow, 2000);
+        }
+      }
+
+      window.onload = showIntro;
+
+      const captions = [
+        "The day it all began — your smile changed everything.",
+        "Our first photo together — I knew we were something special.",
+        "Laughing like kids, loving like soulmates.",
+        "Late night talks, sleepy eyes, full hearts.",
+        "You looked at me like I was home.",
+        "A stolen kiss, forever etched in my mind.",
+        "Holding your hand felt like holding the universe.",
+        "Every second with you is a favorite memory.",
+        "You make ordinary moments feel magical.",
+        "From “I like you” to “I love you” — my favorite journey.",
+        "The way you look at me when I talk — I never felt so heard.",
+        "A thousand lifetimes wouldn’t be enough with you.",
+        "Even silence feels like love when I’m with you.",
+        "We’re not perfect, but we’re perfect for each other.",
+        "5 months down, forever to go — I love you, Janu."
+      ];
+
+      const slideshow = document.getElementById('slideshow');
+      const poemText = document.getElementById('poem-text');
+
+      function startSlideshow() {
+        intros.forEach(t => t.style.display = 'none');
+        document.body.style.background = '#ffb6c1';
+
+        let index = 1;
+        function showSlide() {
+          if (index > 15) {
+            heartContainer.style.display = 'none';
+            setTimeout(() => {
+              poemText.classList.add('show');
+            }, 1000);
+            return;
+          }
+
+          const slide = document.createElement('div');
+          slide.className = 'slide';
+          slide.innerHTML = `
+            <img src="${index}.jpg" class="image" />
+            <div class="caption">${captions[index - 1]}</div>
+          `;
+          slideshow.innerHTML = '';
+          slideshow.appendChild(slide);
+
+          setTimeout(() => {
+            slide.classList.add('show');
+          }, 100);
+
+          setTimeout(() => {
+            slide.classList.remove('show');
+          }, 3000);
+
+          index++;
+          setTimeout(showSlide, 4000);
+        }
+
+        showSlide();
+      }
+    }
+
     // HEART ANIMATION
     const heartContainer = document.getElementById('hearts-container');
     for (let i = 0; i < 40; i++) {
@@ -176,89 +307,6 @@
       heart.style.left = Math.random() * 100 + 'vw';
       heart.style.animationDuration = (5 + Math.random() * 5) + 's';
       heartContainer.appendChild(heart);
-    }
-
-    // INTRO TEXT SEQUENCE
-    const intros = [
-      document.getElementById('intro1'),
-      document.getElementById('intro2'),
-      document.getElementById('intro3'),
-      document.getElementById('intro4'),
-      document.getElementById('intro5')
-    ];
-
-    let currentIntro = 0;
-    function showIntro() {
-      if (currentIntro > 0) intros[currentIntro - 1].classList.remove('show');
-      if (currentIntro < intros.length) {
-        intros[currentIntro].classList.add('show');
-        currentIntro++;
-        setTimeout(showIntro, 2500);
-      } else {
-        setTimeout(startSlideshow, 2000);
-      }
-    }
-
-    window.onload = showIntro;
-
-    // SLIDESHOW
-    const captions = [
-      "The day it all began — your smile changed everything.",
-      "Our first photo together — I knew we were something special.",
-      "Laughing like kids, loving like soulmates.",
-      "Late night talks, sleepy eyes, full hearts.",
-      "You looked at me like I was home.",
-      "A stolen kiss, forever etched in my mind.",
-      "Holding your hand felt like holding the universe.",
-      "Every second with you is a favorite memory.",
-      "You make ordinary moments feel magical.",
-      "From “I like you” to “I love you” — my favorite journey.",
-      "The way you look at me when I talk — I never felt so heard.",
-      "A thousand lifetimes wouldn’t be enough with you.",
-      "Even silence feels like love when I’m with you.",
-      "We’re not perfect, but we’re perfect for each other.",
-      "5 months down, forever to go — I love you, Janu."
-    ];
-
-    const slideshow = document.getElementById('slideshow');
-    const poemText = document.getElementById('poem-text');
-
-    function startSlideshow() {
-      intros.forEach(t => t.style.display = 'none');
-      document.body.style.background = '#ffb6c1';
-
-      let index = 1;
-      function showSlide() {
-        if (index > 15) {
-          heartContainer.style.display = 'none';
-          setTimeout(() => {
-            poemText.classList.add('show');
-          }, 1000);
-          return;
-        }
-
-        const slide = document.createElement('div');
-        slide.className = 'slide';
-        slide.innerHTML = `
-          <img src="${index}.jpg" class="image" />
-          <div class="caption">${captions[index - 1]}</div>
-        `;
-        slideshow.innerHTML = '';
-        slideshow.appendChild(slide);
-
-        setTimeout(() => {
-          slide.classList.add('show');
-        }, 100);
-
-        setTimeout(() => {
-          slide.classList.remove('show');
-        }, 3000);
-
-        index++;
-        setTimeout(showSlide, 4000);
-      }
-
-      showSlide();
     }
   </script>
 </body>
