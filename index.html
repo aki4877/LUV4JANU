@@ -133,25 +133,28 @@
       text-align: center;
     }
 
-    #mute-toggle {
+    #continue-button {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 12;
-      background: rgba(255, 192, 203, 0.8);
+      background: linear-gradient(135deg, #ff99cc, #ff6699);
       color: #fff;
       border: none;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
+      border-radius: 12px;
+      padding: 10px 20px;
       font-size: 1.2em;
+      font-family: 'Dancing Script', cursive;
       cursor: pointer;
       display: none;
-      transition: background 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: background 0.3s ease, transform 0.2s ease;
     }
 
-    #mute-toggle:hover {
-      background: rgba(255, 192, 203, 1);
+    #continue-button:hover {
+      background: linear-gradient(135deg, #ff80b3, #ff4d80);
+      transform: translateX(-50%) scale(1.05);
     }
 
     /* Mobile-specific styles */
@@ -199,7 +202,7 @@
         display: none;
       }
 
-      #mute-toggle {
+      #continue-button {
         display: block;
       }
     }
@@ -245,8 +248,8 @@
   <!-- VIDEO PROMPT -->
   <div id="video-prompt">Click on the video to start :> </div>
 
-  <!-- MUTE/UNMUTE BUTTON -->
-  <button id="mute-toggle">🔇</button>
+  <!-- CONTINUE BUTTON -->
+  <button id="continue-button">Click to Continue</button>
 
   <script>
     var tag = document.createElement('script');
@@ -271,7 +274,7 @@
       if (isMobile) {
         player.mute();
         player.playVideo();
-        startShow();
+        // Show waits for button click
       }
     }
 
@@ -287,17 +290,15 @@
       document.getElementById('video-prompt').style.display = 'none';
     }
 
-    // Mute/Unmute toggle
-    const muteToggle = document.getElementById('mute-toggle');
-    muteToggle.addEventListener('click', () => {
-      if (player.isMuted()) {
+    // Continue button logic
+    const continueButton = document.getElementById('continue-button');
+    if (isMobile) {
+      continueButton.addEventListener('click', () => {
         player.unMute();
-        muteToggle.innerText = '🔊';
-      } else {
-        player.mute();
-        muteToggle.innerText = '🔇';
-      }
-    });
+        continueButton.style.display = 'none';
+        startShow();
+      });
+    }
 
     function startShow() {
       const intros = [
