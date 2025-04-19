@@ -97,22 +97,15 @@
       z-index: 5;
     }
 
-    audio {
-      display: none;
-    }
-
-    #play-audio-prompt {
+    #youtube-video {
       position: fixed;
-      top: 20px;
+      bottom: 20px;
       right: 20px;
+      width: 200px;
+      height: 113px;
       z-index: 10;
-      background: rgba(255, 192, 203, 0.8);
-      color: #fff;
-      padding: 10px 20px;
       border-radius: 10px;
-      cursor: pointer;
-      font-size: 1.5em;
-      display: none;
+      box-shadow: 0 0 10px rgba(255, 192, 203, 0.6);
     }
   </style>
 </head>
@@ -141,15 +134,12 @@
     It’s you and me, forever to be.
   </div>
 
-  <!-- MUSIC -->
-  <audio id="background-music" loop>
-    <source src="music.mp3" type="audio/mpeg">
-    <source src="music.ogg" type="audio/ogg">
-    Your browser does not support the audio element.
-  </audio>
-
-  <!-- AUDIO PLAY PROMPT -->
-  <div id="play-audio-prompt">Click to Play Music</div>
+  <!-- YOUTUBE VIDEO -->
+  <iframe id="youtube-video" 
+          src="https://www.youtube.com/embed/B8eF-UACAPQ?autoplay=1&mute=1&loop=1&playlist=B8eF-UACAPQ&controls=1" 
+          frameborder="0" 
+          allow="autoplay; encrypted-media" 
+          allowfullscreen></iframe>
 
   <script>
     // HEART ANIMATION
@@ -162,30 +152,6 @@
       heart.style.animationDuration = (5 + Math.random() * 5) + 's';
       heartContainer.appendChild(heart);
     }
-
-    // AUDIO HANDLING
-    const audio = document.getElementById('background-music');
-    const playPrompt = document.getElementById('play-audio-prompt');
-
-    // Attempt to play audio on load
-    audio.play().catch(error => {
-      console.error('Audio playback failed:', error);
-      playPrompt.style.display = 'block'; // Show prompt if autoplay fails
-    });
-
-    // Handle user interaction to play audio
-    playPrompt.addEventListener('click', () => {
-      audio.play().then(() => {
-        playPrompt.style.display = 'none'; // Hide prompt after successful play
-      }).catch(error => {
-        console.error('Audio playback failed after click:', error);
-      });
-    });
-
-    // Log audio loading errors
-    audio.addEventListener('error', () => {
-      console.error('Audio file failed to load. Check if music.mp3 or music.ogg exists in the correct directory.');
-    });
 
     // INTRO TEXT SEQUENCE
     const intros = [
