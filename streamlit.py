@@ -5,7 +5,7 @@ import os
 st.set_page_config(page_title="Image Test", layout="wide")
 
 # Title
-st.title("Image Loading Test (Updated: 04-19-2025 05:30 AM PDT)")
+st.title("Image Loading Test (Updated: 04-19-2025 05:45 AM PDT)")
 
 # List of image files
 image_files = [f"{i}.jpg" for i in range(1, 16)]
@@ -15,7 +15,7 @@ for img_file in image_files:
     try:
         # Check if file exists in the root directory
         if os.path.exists(img_file):
-            st.image(img_file, caption=f"Image {img_file}", use_column_width=True)
+            st.image(img_file, caption=f"Image {img_file}", use_container_width=True)
         else:
             st.error(f"File {img_file} not found in the root directory.")
     except Exception as e:
