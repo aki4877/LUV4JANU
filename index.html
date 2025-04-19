@@ -5,7 +5,7 @@ import os
 # Set page configuration
 st.set_page_config(page_title="Happy 5 Months, Janu", layout="wide")
 
-# Custom CSS for styling (simulating HTML styles)
+# Custom CSS for styling
 st.markdown(
     """
     <style>
@@ -39,7 +39,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Import Google Fonts (Great Vibes) via link tag
+# Import Google Fonts
 st.markdown('<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">', unsafe_allow_html=True)
 
 # Intro texts
@@ -111,37 +111,38 @@ def start_show():
 if st.button("Start Show" if st.session_state.step == 0 else "Restart Show", key="start_button"):
     start_show()
 
+# Main content placeholder
+placeholder = st.empty()
+
 # Main show logic
 if st.session_state.step == 1:
-    # Intro sequence
-    if st.session_state.intro_index < len(intro_texts):
-        st.markdown(f'<div class="intro-text show">{intro_texts[st.session_state.intro_index]}</div>', unsafe_allow_html=True)
-        time.sleep(2.5)
-        st.session_state.intro_index += 1
-        st.experimental_rerun()
-    elif not st.session_state.show_poem:
-        # Slideshow
-        if st.session_state.slide_index < len(image_files):
+    with placeholder.container():
+        if st.session_state.intro_index < len(intro_texts):
+            st.markdown(f'<div class="intro-text show">{intro_texts[st.session_state.intro_index]}</div>', unsafe_allow_html=True)
+            time.sleep(2.5)
+            st.session_state.intro_index += 1
+        elif st.session_state.slide_index < len(image_files):
             img_file = image_files[st.session_state.slide_index]
             try:
                 if os.path.exists(img_file):
-                    st.markdown('<div class="slide-text">', unsafe_allow_html=True)
+                    st.markdown('<div class="slide-text show">', unsafe_allow_html=True)
                     st.image(img_file, caption=captions[st.session_state.slide_index], width=300)
                     st.markdown('</div>', unsafe_allow_html=True)
                     st.markdown(f'<div class="caption">{captions[st.session_state.slide_index]}</div>', unsafe_allow_html=True)
                     time.sleep(4)  # 3s display + 1s transition
                     st.session_state.slide_index += 1
-                    st.experimental_rerun()
+                else:
+                    st.error(f"File {img_file} not found.")
+                    st.session_state.slide_index += 1
             except Exception as e:
                 st.error(f"Failed to load {img_file}: {str(e)}")
                 st.session_state.slide_index += 1
-                st.experimental_rerun()
-        else:
-            # Poem
-            st.session_state.show_poem = True
+            if st.session_state.slide_index >= len(image_files):
+                st.session_state.show_poem = True
+        elif st.session_state.show_poem:
             st.markdown('<div class="poem-text show">' + poem + '</div>', unsafe_allow_html=True)
             st.markdown('<style>body { background-color: #89CFF0; }</style>', unsafe_allow_html=True)
 
-# Debugging note
-if st.session_state.step > 0:
+# Debugging note (only shown initially)
+if st.session_state.step == 0:
     st.write("If issues persist, test raw URLs (e.g., https://raw.githubusercontent.com/yourusername/yourrepo/main/1.jpg).")
