@@ -66,12 +66,39 @@
 
     .slide {
       display: none;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
     }
 
     .slide.show {
       display: flex;
       opacity: 1;
       visibility: visible; /* Ensure it's visible */
+      transition: opacity 1s ease-in-out; /* Fade in/out with caption */
+    }
+
+    .image {
+      max-width: 70vw;
+      max-height: 60vh;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(255, 192, 203, 0.6);
+    }
+
+    .caption {
+      font-size: 2.5em;
+      color: #ffccdd;
+      margin-top: 20px;
+      max-width: 80%;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1s ease-in-out, visibility 0s 1s;
+    }
+
+    .caption.show {
+      visibility: visible;
+      opacity: 1;
+      transition: opacity 1s ease-in-out, visibility 0s;
     }
 
     .poem {
@@ -89,20 +116,6 @@
       visibility: visible;
       opacity: 1;
       transition: opacity 2s ease-in-out, visibility 0s; /* Fade in without delay */
-    }
-
-    .image {
-      max-width: 70vw;
-      max-height: 60vh;
-      border-radius: 20px;
-      box-shadow: 0 0 30px rgba(255, 192, 203, 0.6);
-    }
-
-    .caption {
-      font-size: 2.5em;
-      color: #ffccdd;
-      margin-top: 30px;
-      max-width: 80%;
     }
 
     #slideshow {
@@ -231,12 +244,19 @@
         slideshow.innerHTML = '';
         slideshow.appendChild(slide);
 
+        const image = slide.querySelector('.image');
+        const caption = slide.querySelector('.caption');
+
         setTimeout(() => {
           slide.classList.add('show');
+          image.classList.add('show');
+          caption.classList.add('show');
         }, 100);
 
         setTimeout(() => {
           slide.classList.remove('show');
+          image.classList.remove('show');
+          caption.classList.remove('show');
         }, 3000);
 
         index++;
