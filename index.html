@@ -65,10 +65,9 @@
       color: #fff;
     }
 
-    .text.final {
-      font-size: 4em;
-      color: #ffccff;
-      font-weight: bold;
+    #bigIntro {
+      font-size: 5em;
+      color: #fff;
     }
 
     .image {
@@ -131,19 +130,11 @@
       font-family: 'Great Vibes', cursive;
       text-align: center;
     }
-
-    #video-prompt::after {
-      content: '';
-      display: block;
-      font-size: 1.8em;
-      line-height: 1;
-      margin-top: 2px;
-    }
   </style>
 </head>
 <body>
 
-  <!-- HEART ANIMATION -->
+  <!-- HEARTS -->
   <div class="hearts" id="hearts-container"></div>
 
   <!-- INTRO TEXTS -->
@@ -152,10 +143,9 @@
   <div class="text" id="intro3">Every day with you is magic</div>
   <div class="text" id="intro4">You are my heart, my peace</div>
   <div class="text" id="intro5">Here’s to forever, my love 💖</div>
-  <div class="text" id="intro6">Through ups and downs</div>
-  <div class="text" id="intro7">You've been my strength</div>
-  <div class="text" id="intro8">My laughter, my safe place</div>
-  <div class="text final" id="final-intro">I love you more than words can say 💗</div>
+  <div class="text" id="intro6">From silly selfies to deep talks</div>
+  <div class="text" id="intro7">Every moment means the world to me</div>
+  <div class="text" id="bigIntro">I LOVE YOU, JANU 💞</div>
 
   <!-- SLIDESHOW -->
   <div id="slideshow"></div>
@@ -181,7 +171,6 @@
   <div id="video-prompt">Click on the video to start :> </div>
 
   <script>
-    // Load YouTube IFrame API
     var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
     var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -197,9 +186,7 @@
       });
     }
 
-    function onPlayerReady(event) {
-      // Waiting for user interaction
-    }
+    function onPlayerReady(event) {}
 
     function onPlayerStateChange(event) {
       if (event.data === YT.PlayerState.PLAYING) {
@@ -209,8 +196,7 @@
     }
 
     function minimizeVideo() {
-      const video = document.getElementById('youtube-video');
-      video.style.display = 'none';
+      document.getElementById('youtube-video').style.display = 'none';
       document.getElementById('video-prompt').style.display = 'none';
     }
 
@@ -223,45 +209,54 @@
         document.getElementById('intro5'),
         document.getElementById('intro6'),
         document.getElementById('intro7'),
-        document.getElementById('intro8')
       ];
-
-      const finalIntro = document.getElementById('final-intro');
-      const slideshow = document.getElementById('slideshow');
-      const poemText = document.getElementById('poem-text');
-      const heartContainer = document.getElementById('hearts-container');
-
+      const bigIntro = document.getElementById('bigIntro');
       let currentIntro = 0;
 
       function showIntro() {
-        if (currentIntro > 0 && currentIntro <= intros.length) {
-          intros[currentIntro - 1].classList.remove('show');
-          intros[currentIntro - 1].style.display = 'none';
+        if (currentIntro >= intros.length) {
+          setTimeout(showFinalIntro, 1000);
+          return;
         }
 
-        if (currentIntro < intros.length) {
-          intros[currentIntro].classList.add('show');
-          currentIntro++;
-          setTimeout(showIntro, 2500);
-        } else {
+        const current = intros[currentIntro];
+        current.style.display = 'flex';
+
+        setTimeout(() => {
+          current.classList.add('show');
+        }, 100);
+
+        setTimeout(() => {
+          current.classList.remove('show');
           setTimeout(() => {
-            finalIntro.classList.add('show');
+            current.style.display = 'none';
+            currentIntro++;
+            showIntro();
+          }, 1000); // Wait for fade out
+        }, 4000); // Time visible
+      }
+
+      function showFinalIntro() {
+        bigIntro.style.display = 'flex';
+        setTimeout(() => bigIntro.classList.add('show'), 100);
+
+        setTimeout(() => {
+          bigIntro.classList.remove('show');
+          setTimeout(() => {
+            bigIntro.style.display = 'none';
+            document.body.style.background = '#89CFF0';
+            setTimeout(startSlideshow, 1500);
           }, 1000);
-
-          setTimeout(() => {
-            finalIntro.classList.remove('show');
-            finalIntro.style.display = 'none';
-            setTimeout(() => {
-              document.body.style.background = '#89CFF0';
-              setTimeout(startSlideshow, 1000);
-            }, 1000);
-          }, 4000);
-        }
+        }, 5000);
       }
 
       showIntro();
 
-      const slides = []; // Add slide objects here
+      const slides = []; // <-- Add your images & captions here
+
+      const slideshow = document.getElementById('slideshow');
+      const poemText = document.getElementById('poem-text');
+      const heartContainer = document.getElementById('hearts-container');
 
       function startSlideshow() {
         let index = 0;
@@ -278,19 +273,14 @@
           const slide = document.createElement('div');
           slide.className = 'slide';
           slide.innerHTML = `
-            <img src="${slides[index].src}" class="image" onerror="this.src='https://via.placeholder.com/300'; console.error('Failed to load image: ${slides[index].src}')">
+            <img src="${slides[index].src}" class="image" onerror="this.src='https://via.placeholder.com/300';">
             <div class="caption">${slides[index].caption}</div>
           `;
           slideshow.innerHTML = '';
           slideshow.appendChild(slide);
 
-          setTimeout(() => {
-            slide.classList.add('show');
-          }, 100);
-
-          setTimeout(() => {
-            slide.classList.remove('show');
-          }, 3000);
+          setTimeout(() => slide.classList.add('show'), 100);
+          setTimeout(() => slide.classList.remove('show'), 3000);
 
           index++;
           setTimeout(showSlide, 4000);
@@ -300,7 +290,7 @@
       }
     }
 
-    // HEART ANIMATION
+    // HEARTS
     const heartContainer = document.getElementById('hearts-container');
     for (let i = 0; i < 40; i++) {
       const heart = document.createElement('div');
