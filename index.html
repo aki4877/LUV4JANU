@@ -111,15 +111,6 @@
       transition: all 0.5s ease-in-out;
     }
 
-    #youtube-video.minimized {
-      top: auto;
-      left: auto;
-      bottom: 20px;
-      right: 20px;
-      width: 200px;
-      height: 113px;
-    }
-
     #video-prompt {
       position: fixed;
       top: 40%;
@@ -210,7 +201,7 @@
     // Minimize video and start the show
     function minimizeVideo() {
       const video = document.getElementById('youtube-video');
-      video.classList.add('minimized');
+      video.style.display = 'none'; // Hide the video completely
       document.getElementById('video-prompt').style.display = 'none';
     }
 
