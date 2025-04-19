@@ -226,17 +226,25 @@
 
       let currentIntro = 0;
       function showIntro() {
-        if (currentIntro > 0) intros[currentIntro - 1].classList.remove('show');
+        if (currentIntro > 0) {
+          intros[currentIntro - 1].classList.remove('show');
+          intros[currentIntro - 1].style.display = 'none'; // Explicitly hide previous intro
+        }
         if (currentIntro < intros.length) {
           intros[currentIntro].classList.add('show');
           currentIntro++;
           setTimeout(showIntro, 2500);
         } else {
+          // Hide all intros before starting slideshow
+          intros.forEach(intro => {
+            intro.classList.remove('show');
+            intro.style.display = 'none';
+          });
           setTimeout(startSlideshow, 2000);
         }
       }
 
-      window.onload = showIntro;
+      showIntro(); // Start intro sequence immediately
 
       const captions = [
         "The day it all began — your smile changed everything.",
@@ -260,13 +268,13 @@
       const poemText = document.getElementById('poem-text');
 
       function startSlideshow() {
-        intros.forEach(t => t.style.display = 'none');
         document.body.style.background = '#ffb6c1';
 
         let index = 1;
         function showSlide() {
           if (index > 15) {
             heartContainer.style.display = 'none';
+            slideshow.innerHTML = ''; // Clear slideshow
             setTimeout(() => {
               poemText.classList.add('show');
             }, 1000);
@@ -279,7 +287,7 @@
             <img src="${index}.jpg" class="image" />
             <div class="caption">${captions[index - 1]}</div>
           `;
-          slideshow.innerHTML = '';
+          slideshow.innerHTML = ''; // Clear previous slide
           slideshow.appendChild(slide);
 
           setTimeout(() => {
