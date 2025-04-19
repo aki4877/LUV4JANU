@@ -8,6 +8,7 @@
       margin: 0;
       padding: 20px;
       background: #000;
+      color: #fff;
     }
     img {
       max-width: 100%;
@@ -15,23 +16,28 @@
       margin-bottom: 20px;
       display: block;
     }
+    .error {
+      color: red;
+      font-family: Arial, sans-serif;
+    }
   </style>
 </head>
 <body>
-  <img src="1.jpg" alt="Image 1" onerror="console.error('Failed to load 1.jpg')">
-  <img src="2.jpg" alt="Image 2" onerror="console.error('Failed to load 2.jpg')">
-  <img src="3.jpg" alt="Image 3" onerror="console.error('Failed to load 3.jpg')">
-  <img src="4.jpg" alt="Image 4" onerror="console.error('Failed to load 4.jpg')">
-  <img src="5.jpg" alt="Image 5" onerror="console.error('Failed to load 5.jpg')">
-  <img src="6.jpg" alt="Image 6" onerror="console.error('Failed to load 6.jpg')">
-  <img src="7.jpg" alt="Image 7" onerror="console.error('Failed to load 7.jpg')">
-  <img src="8.jpg" alt="Image 8" onerror="console.error('Failed to load 8.jpg')">
-  <img src="9.jpg" alt="Image 9" onerror="console.error('Failed to load 9.jpg')">
-  <img src="10.jpg" alt="Image 10" onerror="console.error('Failed to load 10.jpg')">
-  <img src="11.jpg" alt="Image 11" onerror="console.error('Failed to load 11.jpg')">
-  <img src="12.jpg" alt="Image 12" onerror="console.error('Failed to load 12.jpg')">
-  <img src="13.jpg" alt="Image 13" onerror="Failed to load 13.jpg')">
-  <img src="14.jpg" alt="Image 14" onerror="console.error('Failed to load 14.jpg')">
-  <img src="15.jpg" alt="Image 15" onerror="console.error('Failed to load 15.jpg')">
+  <h1>Image Loading Test</h1>
+  <img src="1.jpg" alt="Image 1" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 1.jpg</div>'; console.error('Failed to load 1.jpg: Check path or file')">
+  <img src="2.jpg" alt="Image 2" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 2.jpg</div>'; console.error('Failed to load 2.jpg: Check path or file')">
+  <img src="3.jpg" alt="Image 3" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 3.jpg</div>'; console.error('Failed to load 3.jpg: Check path or file')">
+  <img src="4.jpg" alt="Image 4" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 4.jpg</div>'; console.error('Failed to load 4.jpg: Check path or file')">
+  <img src="5.jpg" alt="Image 5" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 5.jpg</div>'; console.error('Failed to load 5.jpg: Check path or file')">
+  <img src="6.jpg" alt="Image 6" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 6.jpg</div>'; console.error('Failed to load 6.jpg: Check path or file')">
+  <img src="7.jpg" alt="Image 7" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 7.jpg</div>'; console.error('Failed to load 7.jpg: Check path or file')">
+  <img src="8.jpg" alt="Image 8" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 8.jpg</div>'; console.error('Failed to load 8.jpg: Check path or file')">
+  <img src="9.jpg" alt="Image 9" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 9.jpg</div>'; console.error('Failed to load 9.jpg: Check path or file')">
+  <img src="10.jpg" alt="Image 10" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 10.jpg</div>'; console.error('Failed to load 10.jpg: Check path or file')">
+  <img src="11.jpg" alt="Image 11" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 11.jpg</div>'; console.error('Failed to load 11.jpg: Check path or file')">
+  <img src="12.jpg" alt="Image 12" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 12.jpg</div>'; console.error('Failed to load 12.jpg: Check path or file')">
+  <img src="13.jpg" alt="Image 13" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 13.jpg</div>'; console.error('Failed to load 13.jpg: Check path or file')">
+  <img src="14.jpg" alt="Image 14" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 14.jpg</div>'; console.error('Failed to load 14.jpg: Check path or file')">
+  <img src="15.jpg" alt="Image 15" onerror="this.style.display='none'; document.body.innerHTML += '<div class=error>Failed to load 15.jpg</div>'; console.error('Failed to load 15.jpg: Check path or file')">
 </body>
 </html>
