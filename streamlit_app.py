@@ -16,21 +16,21 @@ def get_image_base64(file_path):
 
 # List of image paths and captions (assuming images are in root directory)
 slides = [
-    {"caption": "The day it all began — your smile changed everything.", "filename": "1.jpg"},
-    {"caption": "Our first photo together — I knew we were something special.", "filename": "2.jpg"},
-    {"caption": "Laughing like kids, loving like soulmates.", "filename": "3.jpg"},
-    {"caption": "Late night talks, sleepy eyes, full hearts.", "filename": "4.jpg"},
-    {"caption": "You looked at me like I was home.", "filename": "5.jpg"},
-    {"caption": "A stolen kiss, forever etched in my mind.", "filename": "6.jpg"},
-    {"caption": "Holding your hand felt like holding the universe.", "filename": "7.jpg"},
-    {"caption": "Every second with you is a favorite memory.", "filename": "8.jpg"},
-    {"caption": "You make ordinary moments feel magical.", "filename": "9.jpg"},
-    {"caption": "From “I like you” to “I love you” — my favorite journey.", "filename": "10.jpg"},
-    {"caption": "The way you look at me when I talk — I never felt so heard.", "filename": "11.jpg"},
-    {"caption": "A thousand lifetimes wouldn’t be enough with you.", "filename": "12.jpg"},
-    {"caption": "Even silence feels like love when I’m with you.", "filename": "13.jpg"},
-    {"caption": "We’re not perfect, but we’re perfect for each other.", "filename": "14.jpg"},
-    {"caption": "5 months down, forever to go — I love you, Janu.", "filename": "15.jpg"},
+    {"caption": "one of our first gmeets", "filename": "1.jpg"},
+    {"caption": "akis first tatto for jani", "filename": "2.jpg"},
+    {"caption": "the eyes I feel in love with", "filename": "3.jpg"},
+    {"caption": "the first pic I saw of u", "filename": "4.jpg"},
+    {"caption": "how my gf looks like", "filename": "5.jpg"},
+    {"caption": "but how it feels like talking to her", "filename": "6.jpg"},
+    {"caption": "one of akis key memory of gmeets", "filename": "7.jpg"},
+    {"caption": "aki and jani meet for the first timeeeee", "filename": "8.jpg"},
+    {"caption": "aki and jani hold hands for the first timee", "filename": "9.jpg"},
+    {"caption": "our first kisss!", "filename": "10.jpg"},
+    {"caption": "together, foreverr!", "filename": "11.jpg"},
+    {"caption": "jani being jani", "filename": "12.jpg"},
+    {"caption": "our first mirror pic", "filename": "13.jpg"},
+    {"caption": "janis first painting ab aki and jani and family", "filename": "14.jpg"},
+    {"caption": "janis iconic heart XD", "filename": "15.jpg"},
 ]
 
 # Convert images to base64
