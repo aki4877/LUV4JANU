@@ -80,7 +80,7 @@
     }
 
     .poem {
-      font-size: 3em; /* Increased from 2.5em to 3em */
+      font-size: 3em;
       color: #f5f5f5;
       font-style: italic;
       max-width: 80%;
@@ -201,7 +201,7 @@
     // Minimize video and start the show
     function minimizeVideo() {
       const video = document.getElementById('youtube-video');
-      video.style.display = 'none'; // Hide the video completely
+      video.style.display = 'none';
       document.getElementById('video-prompt').style.display = 'none';
     }
 
@@ -219,14 +219,13 @@
       function showIntro() {
         if (currentIntro > 0) {
           intros[currentIntro - 1].classList.remove('show');
-          intros[currentIntro - 1].style.display = 'none'; // Explicitly hide previous intro
+          intros[currentIntro - 1].style.display = 'none';
         }
         if (currentIntro < intros.length) {
           intros[currentIntro].classList.add('show');
           currentIntro++;
           setTimeout(showIntro, 2500);
         } else {
-          // Hide all intros before starting slideshow
           intros.forEach(intro => {
             intro.classList.remove('show');
             intro.style.display = 'none';
@@ -235,37 +234,38 @@
         }
       }
 
-      showIntro(); // Start intro sequence immediately
+      showIntro();
 
-      const captions = [
-        "The day it all began — your smile changed everything.",
-        "Our first photo together — I knew we were something special.",
-        "Laughing like kids, loving like soulmates.",
-        "Late night talks, sleepy eyes, full hearts.",
-        "You looked at me like I was home.",
-        "A stolen kiss, forever etched in my mind.",
-        "Holding your hand felt like holding the universe.",
-        "Every second with you is a favorite memory.",
-        "You make ordinary moments feel magical.",
-        "From “I like you” to “I love you” — my favorite journey.",
-        "The way you look at me when I talk — I never felt so heard.",
-        "A thousand lifetimes wouldn’t be enough with you.",
-        "Even silence feels like love when I’m with you.",
-        "We’re not perfect, but we’re perfect for each other.",
-        "5 months down, forever to go — I love you, Janu."
+      // Array of image paths and captions (images in root directory)
+      const slides = [
+        { src: '1.jpg', caption: 'The day it all began — your smile changed everything.' },
+        { src: '2.jpg', caption: 'Our first photo together — I knew we were something special.' },
+        { src: '3.jpg', caption: 'Laughing like kids, loving like soulmates.' },
+        { src: '4.jpg', caption: 'Late night talks, sleepy eyes, full hearts.' },
+        { src: '5.jpg', caption: 'You looked at me like I was home.' },
+        { src: '6.jpg', caption: 'A stolen kiss, forever etched in my mind.' },
+        { src: '7.jpg', caption: 'Holding your hand felt like holding the universe.' },
+        { src: '8.jpg', caption: 'Every second with you is a favorite memory.' },
+        { src: '9.jpg', caption: 'You make ordinary moments feel magical.' },
+        { src: '10.jpg', caption: 'From “I like you” to “I love you” — my favorite journey.' },
+        { src: '11.jpg', caption: 'The way you look at me when I talk — I never felt so heard.' },
+        { src: '12.jpg', caption: 'A thousand lifetimes wouldn’t be enough with you.' },
+        { src: '13.jpg', caption: 'Even silence feels like love when I’m with you.' },
+        { src: '14.jpg', caption: 'We’re not perfect, but we’re perfect for each other.' },
+        { src: '15.jpg', caption: '5 months down, forever to go — I love you, Janu.' }
       ];
 
       const slideshow = document.getElementById('slideshow');
       const poemText = document.getElementById('poem-text');
 
       function startSlideshow() {
-        document.body.style.background = '#89CFF0'; // Changed to baby blue
+        document.body.style.background = '#89CFF0';
 
-        let index = 1;
+        let index = 0;
         function showSlide() {
-          if (index > 15) {
+          if (index >= slides.length) {
             heartContainer.style.display = 'none';
-            slideshow.innerHTML = ''; // Clear slideshow
+            slideshow.innerHTML = '';
             setTimeout(() => {
               poemText.classList.add('show');
             }, 1000);
@@ -275,10 +275,10 @@
           const slide = document.createElement('div');
           slide.className = 'slide';
           slide.innerHTML = `
-            <img src="${index}.jpg" class="image" />
-            <div class="caption">${captions[index - 1]}</div>
+            <img src="${slides[index].src}" class="image" onerror="this.src='https://via.placeholder.com/300'; console.error('Failed to load image: ${slides[index].src}')">
+            <div class="caption">${slides[index].caption}</div>
           `;
-          slideshow.innerHTML = ''; // Clear previous slide
+          slideshow.innerHTML = '';
           slideshow.appendChild(slide);
 
           setTimeout(() => {
